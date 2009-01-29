@@ -1,8 +1,8 @@
 # $Author: ddumont $
 # $Date: 2008-05-24 17:04:16 +0200 (sam, 24 mai 2008) $
-# $Revision: 696 $
+# $Revision: 836 $
 
-#    Copyright (c) 2008 Dominique Dumont.
+#    Copyright (c) 2008-2009 Dominique Dumont.
 #
 #    This file is part of Config-Model-OpenSsh.
 #
@@ -29,13 +29,20 @@ use Carp ;
 use IO::File ;
 use Log::Log4perl;
 use File::Copy ;
+use File::Path ;
 
 use Parse::RecDescent ;
-use vars qw($VERSION $grammar $parser) ;
+use vars qw($VERSION $grammar $parser)  ;
 
-$VERSION = sprintf "1.%04d", q$Revision: 696 $ =~ /(\d+)/;
+$VERSION = '1.201' ;
+
 
 my $logger = Log::Log4perl::get_logger(__PACKAGE__);
+
+my $__test_ssh_root_file = 0;
+sub _set_test_ssh_root_file { $__test_ssh_root_file = shift ;} 
+my $__test_ssh_home = '';
+sub _set_test_ssh_home { $__test_ssh_home = shift ;}
 
 =head1 NAME
 
@@ -97,27 +104,63 @@ C<sshd_root> configuration tree.
 
 =cut 
 
+sub sshd_read {
+    read_ssh_file( file => 'sshd_config', @_ ) ;
+}
+
 # for ssh_read:
 # if root: use /etc/ssh/ssh_config as usual
 # if normal user: load root file in "preset mode" 
 #                 load ~/.ssh/config in normal mode
 #                 write back to ~/.ssh/config
-#                 Ssh model should not specify config_dir
+#                 Ssh model can only specify root config_dir
 
-sub sshd_read {
+sub ssh_read {
     my %args = @_ ;
     my $config_root = $args{object}
-      || croak __PACKAGE__," sshd_read: undefined config root object";
-    my $dir = $args{conf_dir} 
-      || croak __PACKAGE__," sshd_read: undefined config dir";
+      || croak __PACKAGE__," ssh_read: undefined config root object";
+    my $instance = $config_root -> instance ;
 
-    unless (-d $dir ) {
-	croak __PACKAGE__," sshd_read: unknown config dir $dir";
+    my $is_user = 1 ;
+
+    # $__test_root_file is a special global variable used only for tests
+    $is_user = 0 if ($> == 0 or $__test_ssh_root_file ); 
+
+    my $home_dir = $__test_ssh_home || $ENV{HOME} ;
+
+    $logger->info("ssh_read: reading ".($is_user ? 'user' :'root').
+		 " ssh config in ". ($is_user ? $home_dir : $args{config_dir}));
+
+    $instance -> preset_start if $is_user ; # regular user
+
+    my $ret = read_ssh_file(file => 'ssh_config', @_) ;
+
+    $instance -> preset_stop if $is_user ;
+
+    if ( $is_user) {
+	# don't croak if user config file is missing
+	 read_ssh_file(file => 'config', @_, 
+		       config_dir => $home_dir.'/.ssh') ;
     }
 
-    my $file = "$dir/sshd_config" ;
+    return $ret ;
+}
+
+sub read_ssh_file {
+    my %args = @_ ;
+    my $config_root = $args{object}
+      || croak __PACKAGE__," read_ssh_file: undefined config root object";
+    my $dir = $args{root}.$args{config_dir} ;
+
+    unless (-d $dir ) {
+	$logger->info("read_ssh_file: unknown config dir $dir");
+	return 0;
+    }
+
+    my $file = $dir.'/'.$args{file} ;
     unless (-r "$file") {
-	croak __PACKAGE__," sshd_read: unknown file $file";
+	$logger->info("read_ssh_file: unknown file $file");
+	return 0;
     }
 
     $logger->info("loading config file $file");
@@ -129,6 +172,7 @@ sub sshd_read {
     if (defined $fh) {
 	my @file = $fh->getlines ;
 	$fh->close;
+
 	# remove comments and cleanup beginning of line
 	map  { s/#.*//; s/^\s+//; } @file ;
 
@@ -138,24 +182,32 @@ sub sshd_read {
 			   ) ;
     }
     else {
-	die __PACKAGE__," sshd_read: can't open $file:$!";
+	die __PACKAGE__," read_ssh_file: can't open $file:$!";
     }
+    return 1;
 }
+
 
 $grammar = << 'EOG' ;
 # See Parse::RecDescent faq about newlines
 sshd_parse: <skip: qr/[^\S\n]*/> line[@arg](s) 
 
-line: match_line | client_alive_line | any_line
+#line: match_line | client_alive_line | host_line | any_line
+line: match_line | host_line | any_line
 
 match_line: /match/i arg(s) "\n"
 {
    Config::Model::OpenSsh::match($arg[0],@{$item[2]}) ;
 }
 
-client_alive_line: /clientalive\w+/i arg(s) "\n"
+#client_alive_line: /clientalive\w+/i arg(s) "\n"
+#{
+#   Config::Model::OpenSsh::clientalive($arg[0],$item[1],@{$item[2]}) ;
+#}
+
+host_line: /host\b/i arg(s) "\n"
 {
-   Config::Model::OpenSsh::clientalive($arg[0],$item[1],@{$item[2]}) ;
+   Config::Model::OpenSsh::host($arg[0],@{$item[2]}) ;
 }
 
 any_line: key arg(s) "\n"  
@@ -189,7 +241,7 @@ $parser = Parse::RecDescent->new($grammar) ;
 
     my $elt = $current_node->fetch_element($key) ;
     my $type = $elt->get_type;
-    # print "got $key type $type and ",join('+',@arg),"\n";
+    #print "got $key type $type and ",join('+',@arg),"\n";
     if    ($type eq 'leaf') { 
 	$elt->store( $arg[0] ) ;
     }
@@ -208,15 +260,15 @@ $parser = Parse::RecDescent->new($grammar) ;
     }
   }
 
-  sub clientalive {
-    my ($root, $key, $arg) = @_ ;
-
-    # first set warp master parameter
-    $root->load("ClientAliveCheck=1") ;
-
-    # then we can load the parameter as usual
-    assign($root,$key,$arg) ;
-  }
+#  sub clientalive {
+#    my ($root, $key, $arg) = @_ ;
+#
+#    # first set warp master parameter
+#    $root->load("ClientAliveCheck=1") ;
+#
+#    # then we can load the parameter as usual
+#    assign($root,$key,$arg) ;
+#  }
 
   sub match {
     my ($root, @pairs) = @_ ;
@@ -230,10 +282,27 @@ $parser = Parse::RecDescent->new($grammar) ;
     while (@pairs) {
 	my $criteria = shift @pairs;
 	my $pattern  = shift @pairs;
-	$block_obj->load(qq!$criteria="$pattern"!);
+	$block_obj->load(qq!Condition $criteria="$pattern"!);
     }
 
-    $current_node = $block_obj->fetch_element('Elements');
+    $current_node = $block_obj->fetch_element('Settings');
+  }
+
+  sub host {
+    my ($root,@patterns)  = @_;
+
+    my $list_obj = $root->fetch_element('Host');
+
+    $logger->info("ssh: load host patterns '".join("','", @patterns)."'");
+
+    # create new host block
+    my $nb_of_elt = $list_obj->fetch_size;
+    my $block_obj = $list_obj->fetch_with_id($nb_of_elt) ;
+    my $pattern_obj = $block_obj->fetch_element('patterns') ;
+
+    map { $pattern_obj->push($_) ; } @patterns;
+
+    $current_node = $block_obj->fetch_element('block');
   }
 
   sub clear {
@@ -254,16 +323,13 @@ sub sshd_write {
     my %args = @_ ;
     my $config_root = $args{object}
       || croak __PACKAGE__," sshd_write: undefined config root object";
-    my $dir = $args{conf_dir} 
-      || croak __PACKAGE__," sshd_write: undefined config dir";
+    my $dir = $args{root}.$args{config_dir} ;
 
-    unless (-d $dir ) {
-	croak __PACKAGE__," sshd_write: unknown config dir $dir";
-    }
+    mkpath($dir, {mode => 0755} )  unless -d $dir ;
 
     my $file = "$dir/sshd_config" ;
     if (-r "$file") {
-	my $backup = "$file.".time ;
+	my $backup = "$file.".time.".bak" ;
 	$logger->info("Backing up file $file in $backup");
 	copy($file,$backup);
     }
@@ -278,12 +344,53 @@ sub sshd_write {
     close OUT;
 }
 
+# for ssh_write:
+# if root: use /etc/ssh/ssh_config as usual
+# if normal user: load root file in "preset mode" 
+#                 load ~/.ssh/config in normal mode
+#                 write back to ~/.ssh/config
+#                 Ssh model can only specify root config_dir
+
+sub ssh_write {
+    my %args = @_ ;
+    my $config_root = $args{object}
+      || croak __PACKAGE__," ssh_write: undefined config root object";
+
+    my $is_user = 1 ;
+    # $__test_root_file is a special global variable used only for tests
+    $is_user = 0 if ($> == 0 or $__test_ssh_root_file ); 
+    my $home_dir = $__test_ssh_home || $ENV{HOME} ;
+
+    my $config_dir = $is_user ? $home_dir.'/.ssh' : $args{config_dir} ;
+    my $dir = $args{root}.$config_dir ;
+
+    mkpath($dir, {mode => 0755} )  unless -d $dir ;
+
+    my $file = $is_user ? "$dir/config" : "$dir/ssh_config" ;
+
+    if (-r "$file") {
+	my $backup = "$file.".time ;
+	$logger->info("Backing up file $file in $backup");
+	copy($file,$backup);
+    }
+
+    $logger->info("writing config file $file");
+
+    my $result = write_node_content($config_root,'custom');
+
+    #print $result ;
+    open(OUT,"> $file") || die "cannot open $file:$!";
+    print OUT $result;
+    close OUT;
+}
+
 sub write_line {
     return sprintf("%-20s %s\n",@_) ;
 }
 
 sub write_node_content {
     my $node = shift ;
+    my $mode = shift || '';
 
     my $result = '' ;
     my $match  = '' ;
@@ -295,28 +402,31 @@ sub write_node_content {
 
 	#print "got $key type $type and ",join('+',@arg),"\n";
 	if    ($name eq 'Match') { 
-	    $match .= write_all_match_block($elt) ;
+	    $match .= write_all_match_block($elt,$mode) ;
 	}
-	elsif    ($name eq 'ClientAliveCheck') { 
-	    # special case that must be skipped
+	elsif    ($name eq 'Host') { 
+	    $match .= write_all_host_block($elt,$mode) ;
 	}
+#	elsif    ($name eq 'ClientAliveCheck') { 
+#	    # special case that must be skipped
+#	}
 	elsif    ($type eq 'leaf') { 
-	    my $v = $elt->fetch ;
+	    my $v = $elt->fetch($mode) ;
 	    if (defined $v and $elt->value_type eq 'boolean') {
 		$v = $v == 1 ? 'yes':'no' ;
 	    }
 	    $result .= write_line($name,$v) if defined $v;
 	}
 	elsif    ($type eq 'check_list') { 
-	    my $v = $elt->fetch ;
+	    my $v = $elt->fetch($mode) ;
 	    $result .= write_line($name,$v) if defined $v and $v;
 	}
 	elsif ($type eq 'list') { 
-	    map { $result .= write_line($name,$_) ;} $elt->fetch_all_values ;
+	    map { $result .= write_line($name,$_) ;} $elt->fetch_all_values($mode) ;
 	}
 	elsif ($type eq 'hash') {
 	    foreach my $k ( $elt->get_all_indexes ) {
-		my $v = $elt->fetch_with_id($k)->fetch ;
+		my $v = $elt->fetch_with_id($k)->fetch($mode) ;
 		$result .=  write_line($name,"$k $v") ;
 	    }
 	}
@@ -330,10 +440,11 @@ sub write_node_content {
 
 sub write_all_match_block {
     my $match_elt = shift ;
+    my $mode = shift || '';
 
     my $result = '' ;
-    foreach my $elt ($match_elt->fetch_all() ) {
-	$result .= write_match_block($elt) ;
+    foreach my $elt ($match_elt->fetch_all($mode) ) {
+	$result .= write_match_block($elt,$mode) ;
     }
 
     return $result ;
@@ -341,23 +452,75 @@ sub write_all_match_block {
 
 sub write_match_block {
     my $match_elt = shift ;
+    my $mode = shift || '';
+
     my $result = "\nMatch " ;
 
     foreach my $name ($match_elt->get_element_name(for => 'master') ) {
 	my $elt = $match_elt->fetch_element($name) ;
 
-	if ($name eq 'Elements') {
-	    $result .= "\n".write_node_content($elt)."\n" ;
+	if ($name eq 'Settings') {
+	    $result .= "\n".write_node_content($elt,$mode)."\n" ;
+	}
+	elsif ($name eq 'Condition') {
+	    $result .= write_match_condition($elt,$mode) ."\n" ;
 	}
 	else {
-	    my $v = $elt->fetch($name) ;
-	    $result .= " $name $v" if defined $v;
+	    die "write_match_block: unexpected element: $name";
 	}
     }
 
     return $result ;
 }
 
+sub write_match_condition {
+    my $cond_elt = shift ;
+    my $mode = shift || '';
+
+    my $result = '' ;
+
+    foreach my $name ($cond_elt->get_element_name(for => 'master') ) {
+	my $elt = $cond_elt->fetch_element($name) ;
+	my $v = $elt->fetch($mode) ;
+	$result .= " $name $v" if defined $v;
+    }
+
+    return $result ;
+}
+
+sub write_all_host_block {
+    my $host_elt = shift ;
+    my $mode = shift || '';
+
+    my $result = '' ;
+    foreach my $elt ($host_elt->fetch_all($mode) ) {
+	$result .= write_host_block($elt,$mode) ;
+    }
+
+    return $result ;
+}
+
+sub write_host_block {
+    my $host_elt = shift ;
+    my $result = "\nHost " ;
+
+    my $pattern_elt = $host_elt->fetch_element('patterns') ;
+    my @custom_pattern = $pattern_elt -> fetch_all_values('custom') ;
+
+    my $block_elt = $host_elt->fetch_element('block') ;
+    my $block_data = write_node_content($block_elt,'custom') ;
+
+    # write data only if custom pattern or custom data is found this
+    # is necessary to avoid writing data from /etc/ssh/ssh_config that
+    # were entered as 'preset' data
+    if (@custom_pattern or $block_data) {
+	$result .= ' '.join(' ',$pattern_elt->fetch_all_values('custom'));
+	$result .= "\n$block_data\n" ;
+	return $result ;
+    }
+
+    return '';
+}
 1;
 
 =head1 AUTHOR
