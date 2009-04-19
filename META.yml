@@ -1,6 +1,6 @@
 ---
 name: Config-Model-OpenSsh
-version: 1.204
+version: 1.205
 author:
   - Dominique Dumont (ddumont at cpan dot org)
 abstract: OpenSsh configuration files editor
@@ -18,7 +18,7 @@ recommends:
 provides:
   Config::Model::OpenSsh:
     file: lib/Config/Model/OpenSsh.pm
-    version: 1.204
+    version: 1.205
 generated_by: Module::Build version 0.3
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html
