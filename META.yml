@@ -1,15 +1,16 @@
 ---
 name: Config-Model-OpenSsh
-version: 1.205
+version: 1.206
 author:
   - Dominique Dumont (ddumont at cpan dot org)
-abstract: OpenSsh configuration files editor
+abstract: OpenSsh configuration files graphical editor
 license: lgpl
 resources:
   license: http://opensource.org/licenses/lgpl-license.php
 requires:
-  Config::Model: 0.632
+  Config::Model: 0.637
   Log::Log4perl: 0
+  Parse::RecDescent: 0
   perl: 5.8.0
 recommends:
   Config::Model::Backend::Augeas: 0
@@ -18,8 +19,8 @@ recommends:
 provides:
   Config::Model::OpenSsh:
     file: lib/Config/Model/OpenSsh.pm
-    version: 1.205
-generated_by: Module::Build version 0.3
+    version: 1.206
+generated_by: Module::Build version 0.33
 meta-spec:
-  url: http://module-build.sourceforge.net/META-spec-v1.2.html
-  version: 1.2
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
