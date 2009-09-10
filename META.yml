@@ -1,6 +1,6 @@
 ---
 name: Config-Model-OpenSsh
-version: 1.207
+version: 1.208
 author:
   - Dominique Dumont (ddumont at cpan dot org)
 abstract: OpenSsh configuration files graphical editor
@@ -11,16 +11,18 @@ requires:
   Config::Model: 0.637
   Log::Log4perl: 0
   Parse::RecDescent: 0
-  perl: 5.8.0
+  perl: v5.8.0
 recommends:
   Config::Model::Backend::Augeas: 0
   Config::Model::CursesUI: 0
   Config::Model::TkUI: 0
+configure_requires:
+  Module::Build: 0.35
 provides:
   Config::Model::OpenSsh:
     file: lib/Config/Model/OpenSsh.pm
-    version: 1.207
-generated_by: Module::Build version 0.33
+    version: 1.208
+generated_by: Module::Build version 0.35
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
