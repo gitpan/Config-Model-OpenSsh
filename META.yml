@@ -4,7 +4,7 @@ author:
   - 'Dominique Dumont (ddumont at cpan dot org)'
 configure_requires:
   Module::Build: 0.36
-generated_by: 'Module::Build version 0.3601'
+generated_by: 'Module::Build version 0.3603'
 license: lgpl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -13,7 +13,7 @@ name: Config-Model-OpenSsh
 provides:
   Config::Model::OpenSsh:
     file: lib/Config/Model/OpenSsh.pm
-    version: 1.209
+    version: 1.210
 recommends:
   Config::Model::Backend::Augeas: 0
   Config::Model::CursesUI: 0
@@ -25,4 +25,4 @@ requires:
   perl: v5.8.0
 resources:
   license: http://opensource.org/licenses/lgpl-license.php
-version: 1.209
+version: 1.210
