@@ -1,0 +1,13 @@
+## This file was written by Config::Model
+## You may modify the content of this file. Configuration 
+## modifications will be preserved. Modifications in
+## comments may be mangled.
+
+# dummy config made for demo
+
+Ciphers              aes128-cbc,aes128-ctr,aes192-cbc,aes192-ctr,aes256-cbc,aes256-ctr
+HostKey              /etc/ssh/ssh_host_key
+# another comment
+IgnoreRhosts         no
+PermitRootLogin      no
+TCPKeepAlive         no

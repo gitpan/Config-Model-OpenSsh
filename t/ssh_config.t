@@ -1,15 +1,13 @@
 # -*- cperl -*-
-# $Author: ddumont $
-# $Date: 2008-04-15 13:57:49 +0200 (mar, 15 avr 2008) $
-# $Revision: 608 $
 
 use ExtUtils::testlib;
-use Test::More tests => 17;
+use Test::More tests => 20;
 use Config::Model ;
-use Config::Model::OpenSsh ; # required for tests
+use Config::Model::Backend::OpenSsh::Ssh ; # required for tests
 use Log::Log4perl qw(:easy) ;
 use File::Path ;
 use English;
+
 
 use warnings;
 #no warnings qw(once);
@@ -21,17 +19,18 @@ my $arg = shift || '';
 my ($log,$show) = (0) x 2 ;
 
 my $trace = $arg =~ /t/ ? 1 : 0 ;
-$::verbose          = 1 if $arg =~ /v/;
 $::debug            = 1 if $arg =~ /d/;
 $log                = 1 if $arg =~ /l/;
 $show               = 1 if $arg =~ /s/;
 
-Log::Log4perl->easy_init($log ? $TRACE: $WARN);
+my $log4perl_user_conf_file = $ENV{HOME}.'/.log4config-model' ;
 
-#$::RD_ERRORS = 1 ;  
-#$::RD_WARN   = 1 ;  # unless undefined, also report non-fatal problems
-#$::RD_HINT   = 1 ;  # if defined, also suggestion remedies
-$::RD_TRACE  = 1 if $arg =~ /p/;
+if ($log and -e $log4perl_user_conf_file ) {
+    Log::Log4perl::init($log4perl_user_conf_file);
+}
+else {
+    Log::Log4perl->easy_init($log ? $DEBUG: $ERROR);
+}
 
 my $model = Config::Model -> new ( ) ;
 
@@ -59,7 +58,7 @@ close SSHD ;
 
 # special global variable used only for tests
 my $joe_home = "/home/joe" ;
-&Config::Model::OpenSsh::_set_test_ssh_home($joe_home) ; 
+&Config::Model::Backend::OpenSsh::Ssh::_set_test_ssh_home($joe_home) ; 
 
 # set up Joe's environment
 my $joe_ssh = $wr_dir.$joe_home.'/.ssh';
@@ -71,7 +70,7 @@ close JOE ;
 sub read_user_ssh {
     my $file = shift ;
     open(IN, $file)||die "can't read $file:$!";
-    my @res = grep {/\w/} map { chomp; s/\s+/ /g; $_ ;} <IN> ;
+    my @res = grep {/\w/} map { chomp; s/\s+/ /g; $_ ;} grep { not /##/ } <IN> ;
     close (IN);
     return @res ;
 }
@@ -79,7 +78,7 @@ sub read_user_ssh {
 print "Test from directory $testdir\n" if $trace ;
 
 # special global variable used only for tests
-&Config::Model::OpenSsh::_set_test_ssh_root_file(1);
+&Config::Model::Backend::OpenSsh::Ssh::_set_test_ssh_root_file(1);
 
 my $root_inst = $model->instance (root_class_name   => 'Ssh',
 				  instance_name     => 'root_ssh_instance',
@@ -93,10 +92,13 @@ my $root_cfg = $root_inst -> config_root ;
 my $dump =  $root_cfg->dump_tree ();
 print $dump if $trace ;
 
-like($dump,qr/Host:foo\.\*,\*\.bar/, "check Host pattern") ;
+like($dump,qr/^#"ssh global comment"/, "check global comment pattern") ;
+like($dump,qr/Ciphers=aes192-cbc,aes128-cbc,3des-cbc,blowfish-cbc,aes256-cbc#"  Protocol 2,1\s+Cipher 3des"/,"check Ciphers comment");
+like($dump,qr/SendEnv#"  PermitLocalCommand no"/,"check SendEnv comment");
+like($dump,qr/Host:"foo\.\*,\*\.bar"/, "check Host pattern") ;
 like($dump,qr/LocalForward:0\s+port=20022/, "check user LocalForward port") ;
 like($dump,qr/host=10.3.244.4/, "check user LocalForward host") ;
-like($dump,qr/LocalForward:1\s+ipv6=1/, "check user LocalForward ipv6") ;
+like($dump,qr/LocalForward:1#"IPv6 example"\s+ipv6=1/, "check user LocalForward ipv6") ;
 like($dump,qr/port=22080/, "check user LocalForward port ipv6") ;
 like($dump,qr/host=2001:0db8:85a3:0000:0000:8a2e:0370:7334/, 
      "check user LocalForward host ipv6") ;
@@ -121,7 +123,7 @@ SKIP: {
 
 
     # now test reading user configuration file on top of root file
-    &Config::Model::OpenSsh::_set_test_ssh_root_file(0);
+    &Config::Model::Backend::OpenSsh::Ssh::_set_test_ssh_root_file(0);
 
     my $user_inst = $model->instance (root_class_name   => 'Ssh',
 				      instance_name     => 'user_ssh_instance',
@@ -135,7 +137,7 @@ SKIP: {
     $dump =  $user_cfg->dump_tree (mode => 'full' );
     print $dump if $trace ;
 
-    like($dump,qr/Host:foo\.\*,\*\.bar/,"check root Host pattern") ;
+    like($dump,qr/Host:"foo\.\*,\*\.bar"/,"check root Host pattern") ;
     like($dump,qr/Host:mine.bar/,"check user Host pattern") ;
 
     #require Tk::ObjScanner; Tk::ObjScanner::scan_object($user_cfg) ;
@@ -159,37 +161,16 @@ SKIP: {
 }
 
 __END__
-
+# ssh global comment
 
 
 Host *
 #   ForwardAgent no
 #   ForwardX11 no
-#   ForwardX11Trusted yes
-#   RhostsRSAAuthentication no
-#   RSAAuthentication yes
-#   PasswordAuthentication yes
-#   HostbasedAuthentication no
-#   GSSAPIAuthentication no
-#   GSSAPIDelegateCredentials no
-#   GSSAPIKeyExchange no
-#   GSSAPITrustDNS no
-#   BatchMode no
-#   CheckHostIP yes
-#   AddressFamily any
-#   ConnectTimeout 0
-#   StrictHostKeyChecking ask
-#   IdentityFile ~/.ssh/identity
-#   IdentityFile ~/.ssh/id_rsa
-#   IdentityFile ~/.ssh/id_dsa
     Port 1022
 #   Protocol 2,1
 #   Cipher 3des
     Ciphers aes192-cbc,aes128-cbc,3des-cbc,blowfish-cbc,aes256-cbc
-#   MACs hmac-md5,hmac-sha1,umac-64@openssh.com,hmac-ripemd160
-#   EscapeChar ~
-#   Tunnel no
-#   TunnelDevice any:any
 #   PermitLocalCommand no
     SendEnv LANG LC_*
     HashKnownHosts yes
@@ -197,6 +178,7 @@ Host *
     GSSAPIDelegateCredentials no
 
 Host foo.*,*.bar
+    # for and bar have X11
     ForwardX11 yes
     SendEnv FOO BAR
 

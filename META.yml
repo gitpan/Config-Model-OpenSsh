@@ -1,28 +1,25 @@
 ---
-abstract: 'OpenSsh configuration files graphical editor'
+abstract: 'OpenSsh config editor'
 author:
-  - 'Dominique Dumont (ddumont at cpan dot org)'
+  - 'Dominique Dumont'
+build_requires:
+  Module::Build: 0.3601
+  Test::More: 0
+  Test::Warn: 0.11
 configure_requires:
-  Module::Build: 0.36
-generated_by: 'Module::Build version 0.3603'
+  Module::Build: 0.3601
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 4.200003, CPAN::Meta::Converter version 2.102400'
 license: lgpl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: Config-Model-OpenSsh
-provides:
-  Config::Model::OpenSsh:
-    file: lib/Config/Model/OpenSsh.pm
-    version: 1.210
 recommends:
   Config::Model::Backend::Augeas: 0
   Config::Model::CursesUI: 0
   Config::Model::TkUI: 0
 requires:
-  Config::Model: 0.637
-  Log::Log4perl: 0
-  Parse::RecDescent: 0
-  perl: v5.8.0
-resources:
-  license: http://opensource.org/licenses/lgpl-license.php
-version: 1.210
+  Config::Model: 1.234
+  Log::Log4perl: 1.11
+version: 1.211

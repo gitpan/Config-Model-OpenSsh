@@ -1,24 +1,23 @@
+#
+# This file is part of Config-Model-OpenSsh
+#
+# This software is Copyright (c) 2011 by Dominique Dumont.
+#
+# This is free software, licensed under:
+#
+#   The GNU Lesser General Public License, Version 2.1, February 1999
+#
 [
           {
             'class_description' => 'Model of /etc/ssh/ssh_config or ~/.ssh/config',
             'include_after' => 'Host',
             'read_config' => [
                                {
-                                 'function' => 'ssh_read',
-                                 'backend' => 'custom',
-                                 'class' => 'Config::Model::OpenSsh',
+                                 'backend' => 'OpenSsh::Ssh',
                                  'config_dir' => '/etc/ssh'
                                }
                              ],
             'name' => 'Ssh',
-            'write_config' => [
-                                {
-                                  'function' => 'ssh_write',
-                                  'backend' => 'custom',
-                                  'class' => 'Config::Model::OpenSsh',
-                                  'config_dir' => '/etc/ssh'
-                                }
-                              ],
             'include' => [
                            'Ssh::HostElement'
                          ],

@@ -1,6 +1,12 @@
-# $Author: ddumont $
-# $Date: 2008-02-07 11:29:57 $
-# $Revision: 1.3 $
+#
+# This file is part of Config-Model-OpenSsh
+#
+# This software is Copyright (c) 2011 by Dominique Dumont.
+#
+# This is free software, licensed under:
+#
+#   The GNU Lesser General Public License, Version 2.1, February 1999
+#
 
 #    Copyright (c) 2008-2009 Dominique Dumont.
 #
@@ -34,7 +40,6 @@ my $build = Module::Build->new
    license       => 'lgpl',
    dist_author   => "Dominique Dumont (ddumont at cpan dot org)",
    dist_abstract => "OpenSsh configuration files graphical editor",
-   script_files   => [ qw/config-edit-ssh config-edit-sshd/ ],
    requires      => {
 		     perl              => '5.8.0',
 		     'Config::Model'   => '0.637',
