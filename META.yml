@@ -22,4 +22,4 @@ recommends:
 requires:
   Config::Model: 1.234
   Log::Log4perl: 1.11
-version: 1.211
+version: 1.212

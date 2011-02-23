@@ -6,12 +6,15 @@ MANIFEST.SKIP
 META.yml
 README
 TODO
+demo/demo.pl
 demo/etc/ssh/sshd_config
-demo/etc/ssh/sshd_config.1298295857.bak
-demo/etc/ssh/sshd_config.1298295875.bak
-demo/etc/ssh/sshd_config.1298295887.bak
+demo/etc/ssh/sshd_config.1296398873.bak
+demo/etc/ssh/sshd_config.1296398881.bak
+demo/etc/ssh/sshd_config.1296398892.bak
+demo/etc/ssh/sshd_config.1296398931.bak
 demo/maintainer-demo.pl
 demo/user-demo.pl
+etc/ssh/sshd_config
 lib/Config/Model/Backend/OpenSsh.pm
 lib/Config/Model/Backend/OpenSsh/Ssh.pm
 lib/Config/Model/Backend/OpenSsh/Sshd.pm
@@ -34,3 +37,4 @@ t/release-pod-spell.t
 t/release-pod-syntax.t
 t/ssh_config.t
 wr_test/ssh_test/etc/ssh/ssh_config
+wr_test/ssh_test/etc/ssh/ssh_config.1288177161
