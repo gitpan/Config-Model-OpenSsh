@@ -1,4 +1,0 @@
-HostKey              /etc/ssh/ssh_host_key
-IgnoreRhosts         no
-PermitRootLogin      no
-TCPKeepAlive         no

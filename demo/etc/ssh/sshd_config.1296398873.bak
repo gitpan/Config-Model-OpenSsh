@@ -1,7 +1,0 @@
-# dummy config made for demo
-HostKey              /etc/ssh/ssh_host_key
-
-KeepAlive   no
-
-# another comment
-IgnoreRhosts         no
