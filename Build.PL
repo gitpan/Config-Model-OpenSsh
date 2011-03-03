@@ -34,17 +34,19 @@ use strict ;
 
 require 5.008;
 
+my %model_files = map { ($_, $_ ) } glob("lib/Config/Model/*.d/*") ;
+
 my $build = Module::Build->new
   (
    module_name   => 'Config::Model::OpenSsh',
    license       => 'lgpl',
    dist_author   => "Dominique Dumont (ddumont at cpan dot org)",
    dist_abstract => "OpenSsh configuration files graphical editor",
-
+   model_files => \%model_files ,
+ 
   'build_requires' => {
     'Module::Build' => '0.3601',
-    'Test::More' => '0',
-    'Test::Warn' => '0.11'
+    'Test::More' => '0'
   },
   'configure_requires' => {
     'Module::Build' => '0.3601'
@@ -71,4 +73,6 @@ my $build = Module::Build->new
 
 
 $build->add_build_element('pl');
+$build->add_build_element('model'); # see model_files above
+
 $build->create_build_script;

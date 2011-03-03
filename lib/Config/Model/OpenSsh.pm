@@ -9,7 +9,7 @@
 #
 package Config::Model::OpenSsh ;
 BEGIN {
-  $Config::Model::OpenSsh::VERSION = '1.213';
+  $Config::Model::OpenSsh::VERSION = '1.214';
 }
 
 1;
