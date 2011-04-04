@@ -1,0 +1,106 @@
+=head1 NAME
+
+Config::Model::models::Sshd::MatchElement - Configuration class Sshd::MatchElement
+
+=head1 DESCRIPTION
+
+Configuration classes used by L<Config::Model>
+
+Configuration class that represents all parameters available 
+inside a Match block of a sshd configuration.
+
+=head1 Elements
+
+=head2 C<AllowTcpForwarding>
+
+Specifies whether TCP forwarding is permitted. The default is "yes".Note that disabling TCP forwarding does not improve security unless users are also denied shell access, as they can always install their own forwarders.Optional. Type enum. choice: 'no', 'yes'.
+
+=head2 C<Banner>
+
+In some jurisdictions, sending a warning message before authentication may be relevant for getting legal protection. The contents of the specified file are sent to the remote user before authentication is allowed. This option is only available for protocol version 2. By default, no banner is displayed.Optional. Type uniline.
+
+=head2 C<ForceCommand>
+
+Forces the execution of the command specified by ForceCommand, ignoring any command supplied by the client. The command is invoked by using the user's login shell with the -c option. This applies to shell, command, or subsystem execution. It is most useful inside a Match block. The command originally supplied by the client is available in the SSH_ORIGINAL_COMMAND environment variable.Optional. Type uniline.
+
+=head2 C<GatewayPorts>
+
+Specifies whether remote hosts are allowed to connect to ports forwarded for the client.  By default, sshd(8) binds remote port forwardings to the loopback address.  This prevents other remote hosts from connecting to forwarded ports.  GatewayPorts can be used to specify that sshd should allow remote port forwardings to bind to non-loopback addresses, thus allowing other hosts to connect.Optional. Type enum. choice: 'yes', 'clientspecified', 'no'. upstream_default: 'no'.
+
+=head2 C<GSSAPIAuthentication>
+
+Specifies whether user authentication based on GSSAPI is allowed. Note that this option applies to protocol version 2 only.Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'no'.
+
+=head2 C<KbdInteractiveAuthentication>
+
+No doc found in sshd documentationOptional. Type enum. choice: 'no', 'yes'. upstream_default: 'no'.
+
+=head2 C<KerberosAuthentication>
+
+Specifies whether the password provided by the user for PasswordAuthentication will be validated through the Kerberos KDC. To use this option, the server needs a Kerberos servtab which allows the verification of the KDC's identity. The default is "no".Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'no'.
+
+=head2 C<PasswordAuthentication>
+
+Specifies whether password authentication is allowed.Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'no'.
+
+=head2 C<PermitOpen>
+
+Specifies the destinations to which TCP port forwarding is permitted. The forwarding specification must be one of the following forms: "host:port" or "IPv4_addr:port" or "[IPv6_addr]:port". An argument of "any" can be used to remove all restrictions and permit any forwarding requests. By default all port forwarding requests are permitted.Optional. Type list of uniline.
+
+=head2 C<RhostsRSAAuthentication>
+
+Specifies whether rhosts or /etc/hosts.equiv authentication together with successful RSA host authentication is allowed.  The default is "no". This option applies to protocol version 1 only.Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'no'.
+
+=head2 C<RSAAuthentication>
+
+Specifies whether pure RSA authentication is allowed. This option applies to protocol version 1 only.Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'yes'.
+
+=head2 C<X11DisplayOffset>
+
+Specifies the first display number available for sshd(8)'s X11 forwarding. This prevents sshd from interfering with real X11 servers.Optional. Type integer. upstream_default: '10'.
+
+=head2 C<X11Forwarding>
+
+Specifies whether X11 forwarding is permitted. Note that disabling X11 forwarding does not prevent users from forwarding X11 traffic, as users can always install their own forwarders. X11 forwarding is automatically disabled if UseLogin is enabled.Optional. Type enum. choice: 'yes', 'no'. upstream_default: 'no'.
+
+=head2 C<X11UseLocalhost>
+
+Specifies whether sshd(8) should bind the X11 forwarding server to the loopback address or to the wildcard address.  By default, sshd binds the forwarding server to the loopback address and sets the hostname part of the DISPLAY environment variable to "localhost". This prevents remote hosts from connecting to the proxy display.  However, some older X11 clients may not function with this configuration. X11UseLocalhost may be set to "no" to specify that the forwarding server should be bound to the wildcard address.Optional. Type enum. choice: 'yes', 'no'. upstream_default: 'yes'.
+
+=head1 SEE ALSO
+
+=over
+
+=item L<config-edit>
+
+=back
+
+=head1 AUTHOR
+
+=over
+
+=item ARRAY(0x3d813f8)
+
+
+=back
+
+=head1 COPYRIGHT
+
+=over
+
+=item ARRAY(0x3d59a18)
+
+
+=back
+
+=head1 LICENSE
+
+=over
+
+=item LGPL2
+
+
+=back
+
+=cut
+

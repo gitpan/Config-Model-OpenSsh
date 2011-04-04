@@ -1,0 +1,64 @@
+=head1 NAME
+
+Config::Model::models::Sshd::MatchBlock - Configuration class Sshd::MatchBlock
+
+=head1 DESCRIPTION
+
+Configuration classes used by L<Config::Model>
+
+Class to represent a Match block inside a sshd_config file. 
+
+It's made of a list of conditions to match and a list of 
+parameters to apply to the matched items.
+
+=head1 Elements
+
+=head2 C<Condition>
+
+Specify the condition (User, Group, Host, Adress) necessary for this Match block to be appliedOptional. Type node.
+
+=head2 C<Settings>
+
+Defines the sshd_config parameters that will override general settings when all defined User, Group, Host and Address patterns match.Optional. Type node.
+
+=head1 SEE ALSO
+
+=over
+
+=item L<config-edit>
+
+=item L<Config::Model::models::Sshd::MatchCondition>
+
+=item L<Config::Model::models::Sshd::MatchElement>
+
+=back
+
+=head1 AUTHOR
+
+=over
+
+=item ARRAY(0x3d59b38)
+
+
+=back
+
+=head1 COPYRIGHT
+
+=over
+
+=item ARRAY(0x3d59598)
+
+
+=back
+
+=head1 LICENSE
+
+=over
+
+=item LGPL2
+
+
+=back
+
+=cut
+

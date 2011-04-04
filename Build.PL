@@ -57,7 +57,7 @@ my $build = Module::Build->new
     'Config::Model::TkUI' => '0'
   },
   'requires' => {
-    'Config::Model' => '1.234',
+    'Config::Model' => '1.236',
     'Log::Log4perl' => '1.11'
   },
 

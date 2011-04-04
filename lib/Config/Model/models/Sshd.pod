@@ -1,0 +1,332 @@
+=head1 NAME
+
+Config::Model::models::Sshd - Configuration class Sshd
+
+=head1 DESCRIPTION
+
+Configuration classes used by L<Config::Model>
+
+Configuration class used by L<Config::Model> to edit or 
+validate /etc/ssh/sshd_config
+
+
+=head1 Elements
+
+=head2 C<AcceptEnv>
+
+Specifies what environment variables sent by the client will be copied into the session's environ(7).Optional. Type list of uniline.
+
+=head2 C<AddressFamily>
+
+Specifies which address family should be used by sshd(8).Optional. Type enum. choice: 'any', 'inet', 'inet6'. upstream_default: 'any'.
+
+=head2 C<AllowGroups>
+
+Login is allowed only for users whose primary group or supplementary group list matches one of the patterns. Only group names are valid; a numerical group ID is not recognized. By default, login is allowed for all groups. The allow/deny directives are processed in the following order: DenyUsers, AllowUsers, DenyGroups, and finally AllowGroups.Optional. Type list of uniline.
+
+=head2 C<AllowUsers>
+
+List of user name patterns, separated by spaces. If specified, login is allowed only for user names that match one of the patterns. Only user names are valid; a numerical user ID is not recognized. By default, login is allowed for all users. If the pattern takes the form USER@HOST then USER and HOST are separately checked, restricting logins to particular users from particular hosts. The allow/deny directives are processed in the following order: DenyUsers, AllowUsers, DenyGroups, and finally AllowGroups.Optional. Type list of uniline.
+
+=head2 C<AllowTcpForwarding>
+
+Specifies whether TCP forwarding is permitted. The default is "yes".Note that disabling TCP forwarding does not improve security unless users are also denied shell access, as they can always install their own forwarders.Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'yes'.
+
+=head2 C<AuthorizedKeysFile>
+
+Specifies the file that contains the public keys that can be used for user authentication. AuthorizedKeysFile may contain tokens of the form %T which are substituted during connection setup.Optional. Type uniline.
+
+=head2 C<Banner>
+
+In some jurisdictions, sending a warning message before authentication may be relevant for getting legal protection. The contents of the specified file are sent to the remote user before authentication is allowed. This option is only available for protocol version 2. By default, no banner is displayed.Optional. Type uniline.
+
+=head2 C<ChallengeResponseAuthentication>
+
+Specifies whether challenge-response authentication is allowed. All authentication styles from login.conf(5) are supported.Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'yes'.
+
+=head2 C<Ciphers>
+
+Specifies the ciphers allowed for protocol version 2. By default, all ciphers are allowed.Optional. Type check_list. choice: '3des-cbc', 'aes128-cbc', 'aes192-cbc', 'aes256-cbc', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'arcfour128', 'arcfour256', 'arcfour', 'blowfish-cbc', 'cast128-cbc'.
+
+=head2 C<ClientAliveCountMax>
+
+Sets the number of client alive messages which may be sent without sshd(8) receiving any messages back from the client. If this threshold is reached while client alive messages are being sent, sshd will disconnect the client, terminating the session.  It is important to note that the use of client alive messages is very different from TCPKeepAlive. The client alive messages are sent through the encrypted channel and therefore will not be spoofable. The TCP keepalive option enabled by TCPKeepAlive is spoofable. The client alive mechanism is valuable when the client or server depend on knowing when a connection has become inactive.
+
+The default value is 3. If ClientAliveInterval is set to 15, and ClientAliveCountMax is left at the default, unresponsive SSH clients will be disconnected after approximately 45 seconds. This option applies to protocol version 2 only.Optional. Type integer. upstream_default: '3'.
+
+=head2 C<ClientAliveInterval>
+
+Optional. Type integer.
+
+=head2 C<Compression>
+
+Specifies whether compression is allowed, or delayed until the user has authenticated successfully.Optional. Type enum. choice: 'yes', 'delayed', 'no'. upstream_default: 'delayed'.
+
+=head2 C<DenyGroups>
+
+This keyword can be followed by a list of group name patterns, separated by spaces.  Login is disallowed for users whose primary group or supplementary group list matches one of the patterns. Only group names are valid; a numerical group ID is not recognized. By default, login is allowed for all groups.  The allow/deny directives are processed in the following order: DenyUsers, AllowUsers, DenyGroups, and finally AllowGroups.Optional. Type list of uniline.
+
+=head2 C<DenyUSers>
+
+This keyword can be followed by a list of user name patterns, separated by spaces.  Login is disallowed for user names that match one of the patterns. Only user names are valid; a numerical user ID is not recognized. By default, login is allowed for all users. If the pattern takes the form USER@HOST then USER and HOST are separately checked, restricting logins to particular users from particular hosts. The allow/deny directives are processed in the following order: DenyUsers, AllowUsers, DenyGroups, and finally AllowGroups.Optional. Type list of uniline.
+
+=head2 C<ForceCommand>
+
+Forces the execution of the command specified by ForceCommand, ignoring any command supplied by the client. The command is invoked by using the user's login shell with the -c option. This applies to shell, command, or subsystem execution. It is most useful inside a Match block. The command originally supplied by the client is available in the SSH_ORIGINAL_COMMAND environment variable.Optional. Type uniline.
+
+=head2 C<GatewayPorts>
+
+Specifies whether remote hosts are allowed to connect to ports forwarded for the client. By default, sshd(8) binds remote port forwardings to the loopback address. This prevents other remote hosts from connecting to forwarded ports. GatewayPorts can be used to specify that sshd should allow remote port forwardings to bind to non-loopback addresses, thus allowing other hosts to connect.Optional. Type enum. choice: 'yes', 'clientspecified', 'no'. upstream_default: 'no'.
+
+=head2 C<GSSAPIAuthentication>
+
+Specifies whether user authentication based on GSSAPI is allowed. Note that this option applies to protocol version 2 only.Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'no'.
+
+=head2 C<GSSAPIKeyExchange>
+
+Specifies whether key exchange based on GSSAPI is allowed. GSSAPI key exchange doesn't rely on ssh keys to verify host identity. Note that this option applies to protocol version 2 only.Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'no'.
+
+=head2 C<GSSAPICleanupCredentials>
+
+Specifies whether to automatically destroy the user's credentials cache on logout. Note that this option applies to protocol version 2 only.Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'no'.
+
+=head2 C<GSSAPIStrictAcceptorCheck>
+
+Determines whether to be strict about the identity of the GSSAPI acceptor a client authenticates against.This facility is provided to assist with operation on multi homed machines. Note that this option applies only to protocol version 2 GSSAPI connections, and setting it to "no" may only work with recent Kerberos GSSAPI libraries.Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'no'.
+
+=head2 C<HostbasedAuthentication>
+
+Specifies whether rhosts or /etc/hosts.equiv authentication together with successful public key client host authentication is allowed (host-based authentication). This option is similar to RhostsRSAAuthentication and applies to protocol version 2 only.Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'no'.
+
+=head2 C<HostbasedUsesNameFromPacketOnly>
+
+Specifies whether or not the server will attempt to perform a reverse name lookup when matching the name in the ~/.shosts, ~/.rhosts, and /etc/hosts.equiv files during HostbasedAuthentication.Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'no'.
+
+=head2 C<HostKey>
+
+Specifies a file containing a private host key used by SSH. The default is /etc/ssh/ssh_host_key for protocol version 1, and /etc/ssh/ssh_host_rsa_key and /etc/ssh/ssh_host_dsa_key for protocol version 2. Note that sshd(8) will refuse to use a file if it is group/world-accessible.  It is possible to have multiple host key files. "rsa1" keys are used for version 1 and "dsa" or "rsa" are used for version 2 of the SSH protocol.Optional. Type list of uniline.
+
+=head2 C<IgnoreRhosts>
+
+Specifies that .rhosts and .shosts files will not be used in RhostsRSAAuthentication or HostbasedAuthentication. /etc/hosts.equiv and /etc/ssh/shosts.equiv are still used. Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'yes'.
+
+=head2 C<IgnoreUserKnownHosts>
+
+Specifies whether sshd(8) should ignore the user's ~/.ssh/known_hosts during RhostsRSAAuthentication or HostbasedAuthentication.Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'no'.
+
+=head2 C<KbdInteractiveAuthentication>
+
+No doc found in sshd documentationOptional. Type enum. choice: 'no', 'yes'. upstream_default: 'no'.
+
+=head2 C<KerberosAuthentication>
+
+Specifies whether the password provided by the user for PasswordAuthentication will be validated through the Kerberos KDC. To use this option, the server needs a Kerberos servtab which allows the verification of the KDC's identity. The default is "no".Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'no'.
+
+=head2 C<KerberosGetAFSToken>
+
+If AFS is active and the user has a Kerberos 5 TGT, attempt to acquire an AFS token before accessing the user's home directory.Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'no'.
+
+=head2 C<KerberosOrLocalPasswd>
+
+If password authentication through Kerberos fails then the password will be validated via any additional local mechanism such as /etc/passwd.Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'yes'.
+
+=head2 C<KerberosTicketCleanup>
+
+Specifies whether to automatically destroy the user's ticket cache file on logout.Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'yes'.
+
+=head2 C<KeyRegenerationInterval>
+
+In protocol version 1, the ephemeral server key is automatically regenerated after this many seconds (if it has been used). The purpose of regeneration is to prevent decrypting captured sessions by later breaking into the machine and stealing the keys. The key is never stored anywhere. If the value is 0, the key is never regenerated. The default is 3600 (seconds).Optional. Type integer. upstream_default: '3600'.
+
+=head2 C<Port>
+
+Specifies the port number that sshd(8) listens on. The default is 22. Multiple options of this type are permitted. See also ListenAddress.Optional. Type integer. upstream_default: '22'.
+
+=head2 C<ListenAddress>
+
+Specifies the local addresses sshd(8) should listen on. The following forms may be used:
+
+  host|IPv4_addr|IPv6_addr
+  host|IPv4_addr:port
+  [host|IPv6_addr]:port
+
+If port is not specified, sshd will listen on the address and all prior Port options specified. The default is to listen on all local addresses.  Multiple ListenAddress options are permitted. Additionally, any Port options must precede this option for non-port qualified addresses.Optional. Type list of uniline.
+
+=head2 C<LoginGraceTime>
+
+The server disconnects after this time if the user has not successfully logged in. If the value is 0, there is no time limit. The default is 120 seconds.Optional. Type integer. upstream_default: '120'.
+
+=head2 C<LogLevel>
+
+Optional. Type enum. choice: 'SILENT', 'QUIET', 'FATAL', 'ERROR', 'INFO', 'VERBOSE', 'DEBUG', 'DEBUG1', 'DEBUG2', 'DEBUG3'. upstream_default: 'INFO'.
+
+=head2 C<MACs>
+
+Specifies the available MAC (message authentication code) algorithms. The MAC algorithm is used in protocol version 2 for data integrity protection.Optional. Type check_list. choice: 'hmac-md5', 'hmac-md5-96', 'hmac-ripemd160', 'hmac-sha1', 'hmac-sha1-96', 'umac-64@openssh.com'.
+
+=head2 C<MaxAuthTries>
+
+Specifies the maximum number of authentication attempts permitted per connection. Once the number of failures reaches half this value, additional failures are logged.Optional. Type integer. upstream_default: '6'.
+
+=head2 C<MaxStartups>
+
+Specifies the maximum number of concurrent unauthenticated connections to the SSH daemon. Additional connections will be dropped until authentication succeeds or the LoginGraceTime expires for a connection. The default is 10.
+
+Alternatively, random early drop can be enabled by specifying the three colon separated values "start:rate:full" (e.g. "10:30:60"). sshd(8) will refuse connection attempts with a probability of "rate/100" (30%) if there are currently "start" (10) unauthenticated connections. The probability increases linearly and all connection attempts are refused if the number of unauthenticated connections reaches "full" (60).Optional. Type uniline. upstream_default: '10'.
+
+=head2 C<PasswordAuthentication>
+
+Specifies whether password authentication is allowed.Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'yes'.
+
+=head2 C<PermitEmptyPasswords>
+
+When password authentication is allowed, it specifies whether the server allows login to accounts with empty password strings.  The default is "no".Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'no'.
+
+=head2 C<PermitOpen>
+
+Specifies the destinations to which TCP port forwarding is permitted. The forwarding specification must be one of the following forms: "host:port" or "IPv4_addr:port" or "[IPv6_addr]:port". An argument of "any" can be used to remove all restrictions and permit any forwarding requests. By default all port forwarding requests are permitted.Optional. Type list of uniline.
+
+=head2 C<PermitRootLogin>
+
+Specifies whether root can log in using ssh(1).Optional. Type enum. choice: 'yes', 'without-password', 'forced-commands-only', 'no'. upstream_default: 'yes'.
+
+=head2 C<PermitTunnel>
+
+Specifies whether tun(4) device forwarding is allowed. The argument must be "yes", "point-to-point" (layer 3), "ethernet" (layer 2), or "no".  Specifying "yes" permits both "point-to-point" and "ethernet".Optional. Type enum. choice: 'yes', 'point-to-point', 'ethernet', 'no'. upstream_default: 'no'.
+
+=head2 C<PermitUserEnvironment>
+
+Specifies whether ~/.ssh/environment and environment= options in ~/.ssh/authorized_keys are processed by sshd(8). The default is "no". Enabling environment processing may enable users to bypass access restrictions in some configurations using mechanisms such as LD_PRELOAD.Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'no'.
+
+=head2 C<PidFile>
+
+Specifies the file that contains the process ID of the SSH daemon.Optional. Type uniline. upstream_default: '/var/run/sshd.pid'.
+
+=head2 C<PrintLastLog>
+
+Specifies whether sshd(8) should print the date and time of the last user login when a user logs in interactively.Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'yes'.
+
+=head2 C<PrintMotd>
+
+Specifies whether sshd(8) should print /etc/motd when a user logs in interactively. (On some systems it is also printed by the shell, /etc/profile, or equivalent.)Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'yes'.
+
+=head2 C<Protocol>
+
+Specifies the protocol versions sshd(8) supports.  Note that the order of the protocol list does not indicate preference, because the client selects among multiple protocol versions offered by the server.Optional. Type check_list. choice: '1', '2'.
+
+=head2 C<RhostsRSAAuthentication>
+
+Specifies whether rhosts or /etc/hosts.equiv authentication together with successful RSA host authentication is allowed.  The default is "no". This option applies to protocol version 1 only.Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'no'.
+
+=head2 C<RSAAuthentication>
+
+Specifies whether pure RSA authentication is allowed. This option applies to protocol version 1 only.Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'yes'.
+
+=head2 C<ServerKeyBits>
+
+Defines the number of bits in the ephemeral protocol version 1 server key. The minimum value is 512, and the default is 768.Optional. Type integer. upstream_default: '768'.
+
+=head2 C<PubkeyAuthentication>
+
+Specifies whether public key authentication is allowed.  The default is "yes". Note that this option applies to protocol version 2 only.Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'yes'.
+
+=head2 C<StrictModes>
+
+Specifies whether sshd(8) should check file modes and ownership of the user's files and home directory before accepting login.  This is normally desirable because novices sometimes accidentally leave their directory or files world-writable.  The default is "yes".
+Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'yes'.
+
+=head2 C<Subsystem>
+
+Configures an external subsystem (e.g. file transfer daemon). Keys of the hash should be a subsystem name and hash value a command (with optional arguments) to execute upon subsystem request. The command sftp-server(8) implements the "sftp" file transfer subsystem.  By default no subsystems are defined. Note that this option applies to protocol version 2 only.Optional. Type hash of uniline.
+
+=head2 C<SyslogFacility>
+
+Gives the facility code that is used when logging messages from sshd(8). The default is AUTH.Optional. Type enum. choice: 'DAEMON', 'USER', 'AUTH', 'LOCAL0', 'LOCAL1', 'LOCAL2', 'LOCAL3', 'LOCAL4', 'LOCAL5', 'LOCAL6', 'LOCAL7'. upstream_default: 'AUTH'.
+
+=head2 C<KeepAlive>
+
+Optional. Type enum. choice: 'no', 'yes'.
+
+=head2 C<TCPKeepAlive>
+
+Specifies whether the system should send TCP keepalive messages to the other side. If they are sent, death of the connection or crash of one of the machines will be properly noticed. However, this means that connections will die if the route is down temporarily, and some people find it annoying.  On the other hand, if TCP keepalives are not sent, sessions may hang indefinitely on the server, leaving "ghost" users and consuming server resources. This option was formerly called KeepAlive.Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'yes'.
+
+=head2 C<UseDNS>
+
+Specifies whether sshd(8) should look up the remote host name and check that the resolved host name for the remote IP address maps back to the very same IP address. The default is "yes"Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'yes'.
+
+=head2 C<UseLogin>
+
+Specifies whether login(1) is used for interactive login sessions.  The default is "no". Note that login(1) is never used for remote command execution.  Note also, that if this is enabled, X11Forwarding will be disabled because login(1) does not know how to handle xauth(1) cookies. If UsePrivilegeSeparation is specified, it will be disabled after authenticationOptional. Type enum. choice: 'no', 'yes'. upstream_default: 'no'.
+
+=head2 C<UsePAM>
+
+Enables the Pluggable Authentication Module interface. If set to "yes" this will enable PAM authentication using ChallengeResponseAuthentication and PasswordAuthentication in addition to PAM account and session module processing for all authentication types.
+
+Because PAM challenge-response authentication usually serves an equivalent role to password authentication, you should disable either PasswordAuthentication or ChallengeResponseAuthentication.
+
+If UsePAM is enabled, you will not be able to run sshd(8) as a non-root user.  The default is "no".Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'no'.
+
+=head2 C<UsePrivilegeSeparation>
+
+Specifies whether sshd(8) separates privileges by creating an unprivileged child process to deal with incoming network traffic.  After successful authentication, another process will be created that has the privilege of the authenticated user. The goal of privilege separation is to prevent privilege escalation by containing any corruption within the unprivileged processes. The default is "yes".Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'yes'.
+
+=head2 C<XAuthLocation>
+
+Specifies the full pathname of the xauth(1) program.Optional. Type uniline. upstream_default: '/usr/bin/X11/xauth'.
+
+=head2 C<X11DisplayOffset>
+
+Specifies the first display number available for sshd(8)'s X11 forwarding. This prevents sshd from interfering with real X11 servers.Optional. Type integer. upstream_default: '10'.
+
+=head2 C<X11Forwarding>
+
+Specifies whether X11 forwarding is permitted. Note that disabling X11 forwarding does not prevent users from forwarding X11 traffic, as users can always install their own forwarders. X11 forwarding is automatically disabled if UseLogin is enabled.Optional. Type enum. choice: 'yes', 'no'. upstream_default: 'no'.
+
+=head2 C<X11UseLocalhost>
+
+Specifies whether sshd(8) should bind the X11 forwarding server to the loopback address or to the wildcard address. By default, sshd binds the forwarding server to the loopback address and sets the hostname part of the DISPLAY environment variable to "localhost". This prevents remote hosts from connecting to the proxy display. However, some older X11 clients may not function with this configuration. X11UseLocalhost may be set to "no" to specify that the forwarding server should be bound to the wildcard address.Optional. Type enum. choice: 'yes', 'no'. upstream_default: 'yes'.
+
+=head2 C<Match>
+
+Specifies a match block. The criteria User, Group Host and Address can contain patterns. When all these criteria are satisfied (i.e. all patterns match the incoming connection), the parameters set in the block element will override the general settings.Optional. Type list of node.
+
+=head1 SEE ALSO
+
+=over
+
+=item L<config-edit>
+
+=item L<Config::Model::models::Sshd::MatchBlock>
+
+=back
+
+=head1 AUTHOR
+
+=over
+
+=item ARRAY(0x3d926b8)
+
+
+=back
+
+=head1 COPYRIGHT
+
+=over
+
+=item ARRAY(0x3d92520)
+
+
+=back
+
+=head1 LICENSE
+
+=over
+
+=item LGPL2
+
+
+=back
+
+=cut
+

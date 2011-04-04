@@ -8,7 +8,7 @@ build_requires:
 configure_requires:
   Module::Build: 0.3601
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.200003, CPAN::Meta::Converter version 2.102400'
+generated_by: 'Dist::Zilla version 4.200004, CPAN::Meta::Converter version 2.110910'
 license: lgpl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -19,6 +19,6 @@ recommends:
   Config::Model::CursesUI: 0
   Config::Model::TkUI: 0
 requires:
-  Config::Model: 1.234
+  Config::Model: 1.236
   Log::Log4perl: 1.11
-version: 1.214
+version: 1.215
