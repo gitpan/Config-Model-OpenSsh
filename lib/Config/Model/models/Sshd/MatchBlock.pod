@@ -13,23 +13,29 @@ parameters to apply to the matched items.
 
 =head1 Elements
 
-=head2 C<Condition>
+=head2 Condition
 
-Specify the condition (User, Group, Host, Adress) necessary for this Match block to be appliedOptional. Type node.
+Specify the condition (User, Group, Host, Adress) necessary for this Match block to be applied. I<< Optional. Type node.  >>
 
-=head2 C<Settings>
+=head2 Settings
 
-Defines the sshd_config parameters that will override general settings when all defined User, Group, Host and Address patterns match.Optional. Type node.
+Defines the sshd_config parameters that will override general settings when all defined User, Group, Host and Address patterns match. I<< Optional. Type node.  >>
 
 =head1 SEE ALSO
 
 =over
 
-=item L<config-edit>
+=item *
 
-=item L<Config::Model::models::Sshd::MatchCondition>
+L<config-edit>
 
-=item L<Config::Model::models::Sshd::MatchElement>
+=item *
+
+L<Config::Model::models::Sshd::MatchCondition>
+
+=item *
+
+L<Config::Model::models::Sshd::MatchElement>
 
 =back
 
@@ -37,7 +43,7 @@ Defines the sshd_config parameters that will override general settings when all 
 
 =over
 
-=item ARRAY(0x3d59b38)
+=item Dominique Dumont
 
 
 =back
@@ -46,7 +52,7 @@ Defines the sshd_config parameters that will override general settings when all 
 
 =over
 
-=item ARRAY(0x3d59598)
+=item 2009-2011 Dominique Dumont
 
 
 =back

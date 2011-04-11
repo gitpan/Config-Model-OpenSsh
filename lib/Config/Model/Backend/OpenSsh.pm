@@ -9,10 +9,10 @@
 #
 package Config::Model::Backend::OpenSsh ;
 BEGIN {
-  $Config::Model::Backend::OpenSsh::VERSION = '1.215';
+  $Config::Model::Backend::OpenSsh::VERSION = '1.216';
 }
 
-use Moose ;
+use Any::Moose ;
 extends "Config::Model::Backend::Any" ;
 
 has 'current_node'  => ( 
@@ -181,6 +181,8 @@ sub write_node_content {
 
     return $result.$match ;
 }
+
+no Any::Moose;
 
 1;
 

@@ -11,27 +11,29 @@ a sshd_config match block.
 
 =head1 Elements
 
-=head2 C<User>
+=head2 User
 
-Define the User criteria of a conditional block. The value of this field is a pattern that is tested against user name.Optional. Type uniline.
+Define the User criteria of a conditional block. The value of this field is a pattern that is tested against user name. I<< Optional. Type uniline.  >>
 
-=head2 C<Group>
+=head2 Group
 
-Define the Group criteria of a conditional block. The value of this field is a pattern that is tested against group name.Optional. Type uniline.
+Define the Group criteria of a conditional block. The value of this field is a pattern that is tested against group name. I<< Optional. Type uniline.  >>
 
-=head2 C<Host>
+=head2 Host
 
-Define the Host criteria of a conditional block. The value of this field is a pattern that is tested against host name.Optional. Type uniline.
+Define the Host criteria of a conditional block. The value of this field is a pattern that is tested against host name. I<< Optional. Type uniline.  >>
 
-=head2 C<Address>
+=head2 Address
 
-Define the Address criteria of a conditional block. The value of this field is a pattern that is tested against the address of the incoming connection.Optional. Type uniline.
+Define the Address criteria of a conditional block. The value of this field is a pattern that is tested against the address of the incoming connection. I<< Optional. Type uniline.  >>
 
 =head1 SEE ALSO
 
 =over
 
-=item L<config-edit>
+=item *
+
+L<config-edit>
 
 =back
 
@@ -39,7 +41,7 @@ Define the Address criteria of a conditional block. The value of this field is a
 
 =over
 
-=item ARRAY(0x3d99ea8)
+=item Dominique Dumont
 
 
 =back
@@ -48,7 +50,7 @@ Define the Address criteria of a conditional block. The value of this field is a
 
 =over
 
-=item ARRAY(0x3d971b0)
+=item 2009-2011 Dominique Dumont
 
 
 =back

@@ -9,10 +9,10 @@
 #
 package Config::Model::Backend::OpenSsh::Ssh ;
 BEGIN {
-  $Config::Model::Backend::OpenSsh::Ssh::VERSION = '1.215';
+  $Config::Model::Backend::OpenSsh::Ssh::VERSION = '1.216';
 }
 
-use Moose ;
+use Any::Moose ;
 extends "Config::Model::Backend::OpenSsh" ;
 
 use Carp ;
@@ -203,6 +203,8 @@ sub write_forward {
     return $self->write_line($forward_elt->element_name,$line,$forward_elt->annotation) ;
 }
 1;
+
+no Any::Moose;
 
 __END__
 

@@ -9,10 +9,10 @@
 #
 package Config::Model::Backend::OpenSsh::Sshd ;
 BEGIN {
-  $Config::Model::Backend::OpenSsh::Sshd::VERSION = '1.215';
+  $Config::Model::Backend::OpenSsh::Sshd::VERSION = '1.216';
 }
 
-use Moose ;
+use Any::Moose ;
 extends "Config::Model::Backend::OpenSsh" ;
 
 use Carp ;
@@ -238,6 +238,8 @@ sub write_match_condition {
 
     return $result ;
 }
+
+no Any::Moose;
 
 1;
 
