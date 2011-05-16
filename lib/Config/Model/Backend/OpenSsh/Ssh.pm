@@ -9,7 +9,7 @@
 #
 package Config::Model::Backend::OpenSsh::Ssh ;
 BEGIN {
-  $Config::Model::Backend::OpenSsh::Ssh::VERSION = '1.216';
+  $Config::Model::Backend::OpenSsh::Ssh::VERSION = '1.217';
 }
 
 use Any::Moose ;
@@ -194,7 +194,7 @@ sub write_forward {
 	next if $name eq 'ipv6' ;
 	my $elt = $forward_elt->fetch_element($name) ;
 	my $v = $elt->fetch($mode) ;
-	next unless defined $v;
+	next unless length($v);
 	$line .=  $name =~ /bind|host$/ ? "$v$sep"
 	       :  $name eq 'port'       ? "$v "
 	       :                           $v ;

@@ -29,6 +29,7 @@ lib/Config/Model/models/Sshd/MatchElement.pl
 lib/Config/Model/models/Sshd/MatchElement.pod
 lib/Config/Model/system.d/ssh
 lib/Config/Model/system.d/sshd
+lib/Config/Model/user.d/ssh
 t/augeas_match.t
 t/augeas_sshd.t
 t/custom_sshd.t

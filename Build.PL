@@ -46,6 +46,7 @@ my $build = Module::Build->new
  
   'build_requires' => {
     'Module::Build' => '0.3601',
+    'Test::Differences' => '0',
     'Test::More' => '0'
   },
   'configure_requires' => {
