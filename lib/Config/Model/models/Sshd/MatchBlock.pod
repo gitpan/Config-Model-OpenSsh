@@ -19,7 +19,7 @@ Specify the condition (User, Group, Host, Adress) necessary for this Match block
 
 =head2 Settings
 
-Defines the sshd_config parameters that will override general settings when all defined User, Group, Host and Address patterns match. I<< Optional. Type node.  >>
+Defines the sshd_config parameters that will override general settings when all defined User, Group, Host and Address patterns match.I<< Optional. Type node.  >>
 
 =head1 SEE ALSO
 

@@ -9,7 +9,7 @@ build_requires:
 configure_requires:
   Module::Build: 0.3601
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.200009, CPAN::Meta::Converter version 2.110930'
+generated_by: 'Dist::Zilla version 4.300003, CPAN::Meta::Converter version 2.110440'
 license: lgpl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -21,6 +21,6 @@ recommends:
   Config::Model::TkUI: 0
 requires:
   Any::Moose: 0
-  Config::Model: 1.236
+  Config::Model: 1.265
   Log::Log4perl: 1.11
-version: 1.218
+version: 1.219

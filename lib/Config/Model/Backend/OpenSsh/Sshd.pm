@@ -8,8 +8,8 @@
 #   The GNU Lesser General Public License, Version 2.1, February 1999
 #
 package Config::Model::Backend::OpenSsh::Sshd ;
-BEGIN {
-  $Config::Model::Backend::OpenSsh::Sshd::VERSION = '1.218';
+{
+  $Config::Model::Backend::OpenSsh::Sshd::VERSION = '1.219';
 }
 
 use Any::Moose ;
