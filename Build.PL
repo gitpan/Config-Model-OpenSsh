@@ -1,13 +1,13 @@
 #
 # This file is part of Config-Model-OpenSsh
 #
-# This software is Copyright (c) 2011 by Dominique Dumont.
+# This software is Copyright (c) 2012 by Dominique Dumont.
 #
 # This is free software, licensed under:
 #
 #   The GNU Lesser General Public License, Version 2.1, February 1999
 #
-#    Copyright (c) 2008-2011 Dominique Dumont.
+#    Copyright (c) 2008-2012 Dominique Dumont.
 #
 #    This file is part of Config-Model-OpenSsh.
 #
@@ -32,7 +32,7 @@ use Data::Dumper ;
 use warnings FATAL => qw(all) ;
 use strict ;
 
-require 5.008;
+require 5.010;
 
 my %model_files = map { ($_, $_ ) } glob("lib/Config/Model/*.d/*") ;
 
@@ -50,17 +50,16 @@ my $build = Module::Build->new
     'Test::More' => '0'
   },
   'configure_requires' => {
+    'Any::Moose' => '0',
+    'Config::Model' => '2.004',
+    'File::Slurp' => '0',
+    'Log::Log4perl' => '1.11',
     'Module::Build' => '0.3601'
   },
   'recommends' => {
     'Config::Model::Backend::Augeas' => '0',
     'Config::Model::CursesUI' => '0',
     'Config::Model::TkUI' => '0'
-  },
-  'requires' => {
-    'Any::Moose' => '0',
-    'Config::Model' => '1.265',
-    'Log::Log4perl' => '1.11'
   },
 
     meta_merge => {

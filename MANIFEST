@@ -4,7 +4,6 @@ LICENSE
 MANIFEST
 MANIFEST.SKIP
 META.yml
-MYMETA.json
 README
 TODO
 demo/maintainer-demo.pl
