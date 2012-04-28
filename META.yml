@@ -13,7 +13,7 @@ configure_requires:
   Log::Log4perl: 1.11
   Module::Build: 0.3601
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300008, CPAN::Meta::Converter version 2.120351'
+generated_by: 'Dist::Zilla version 4.300015, CPAN::Meta::Converter version 2.120921'
 license: lgpl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -23,4 +23,4 @@ recommends:
   Config::Model::Backend::Augeas: 0
   Config::Model::CursesUI: 0
   Config::Model::TkUI: 0
-version: 1.220
+version: 1.221

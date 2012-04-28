@@ -9,7 +9,7 @@
 #
 package Config::Model::Backend::OpenSsh::Ssh ;
 {
-  $Config::Model::Backend::OpenSsh::Ssh::VERSION = '1.220';
+  $Config::Model::Backend::OpenSsh::Ssh::VERSION = '1.221';
 }
 
 use Any::Moose ;
