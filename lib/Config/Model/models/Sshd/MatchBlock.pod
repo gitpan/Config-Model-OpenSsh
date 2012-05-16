@@ -27,7 +27,7 @@ Defines the sshd_config parameters that will override general settings when all 
 
 =item *
 
-L<config-edit>
+L<cme>
 
 =item *
 

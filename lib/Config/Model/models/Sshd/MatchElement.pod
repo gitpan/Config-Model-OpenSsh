@@ -31,15 +31,15 @@ Here are some explanations on the possible values:
 
 =over
 
-=item clientspecified
+=item 'clientspecified'
 
 allow the client to select the address to which the forwarding is bound
 
-=item no
+=item 'no'
 
 No port forwarding
 
-=item yes
+=item 'yes'
 
 force remote port forwardings to bind to the wildcard address
 
@@ -93,7 +93,7 @@ Specifies whether sshd(8) should bind the X11 forwarding server to the loopback 
 
 =item *
 
-L<config-edit>
+L<cme>
 
 =back
 

@@ -51,7 +51,7 @@ my $build = Module::Build->new
   },
   'configure_requires' => {
     'Any::Moose' => '0',
-    'Config::Model' => '2.004',
+    'Config::Model' => '2.015',
     'File::Slurp' => '0',
     'Log::Log4perl' => '1.11',
     'Module::Build' => '0.3601'

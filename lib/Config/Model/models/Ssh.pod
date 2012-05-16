@@ -81,7 +81,7 @@ X11 and ssh-agent(1) forwarding is supported over these multiplexed connections,
 
 Two additional options allow for opportunistic multiplexing: try to use a master connection but fall back to creating a new one if
  one does not already exist. These options are: ``auto'' and ``autoask''. The latter requires confirmation like the ``ask'' option.
-I<< Optional. Type enum. choice: 'no', 'yes', 'ask', 'autoask'. upstream_default: 'no'.  >>
+I<< Optional. Type enum. choice: 'no', 'yes', 'ask', 'auto', 'autoask'. upstream_default: 'no'.  >>
 
 =head2 ControlPath
 
@@ -349,7 +349,7 @@ Specifies the full pathname of the xauth(1) program.  The default is /usr/bin/X1
 
 =item *
 
-L<config-edit>
+L<cme>
 
 =item *
 

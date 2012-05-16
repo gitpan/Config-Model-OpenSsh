@@ -32,9 +32,13 @@ List of user name patterns, separated by spaces. If specified, login is allowed 
 
 Specifies whether TCP forwarding is permitted. The default is "yes".Note that disabling TCP forwarding does not improve security unless users are also denied shell access, as they can always install their own forwarders.I<< Optional. Type enum. choice: 'no', 'yes'. upstream_default: 'yes'.  >>
 
+=head2 AuthorizedKeysFile2
+
+Specifies the file that contains the public keys that can be used for user authentication. AuthorizedKeysFile may contain tokens of the form %T which are substituted during connection setup.I<< Optional. Type list of uniline.  >>
+
 =head2 AuthorizedKeysFile
 
-Specifies the file that contains the public keys that can be used for user authentication. AuthorizedKeysFile may contain tokens of the form %T which are substituted during connection setup.I<< Optional. Type uniline.  >>
+Specifies the file that contains the public keys that can be used for user authentication. AuthorizedKeysFile may contain tokens of the form %T which are substituted during connection setup.I<< Optional. Type list of uniline.  >>
 
 =head2 Banner
 
@@ -82,16 +86,16 @@ Here are some explanations on the possible values:
 
 =over
 
-=item clientspecified
+=item 'clientspecified'
 
 allow the client to select the address to which the forwarding is bound
 
-=item no
+=item 'no'
 
 No port forwarding
 
 
-=item yes
+=item 'yes'
 
 force remote port forwardings to bind to the wildcard address
 
@@ -119,11 +123,11 @@ Here are some explanations on the possible values:
 
 =over
 
-=item no
+=item 'no'
 
 the client may authenticate against any service key stored in the machine's default store
 
-=item yes
+=item 'yes'
 
 the client must authenticate against the host service on the current hostname.
 
@@ -143,11 +147,11 @@ Here are some explanations on the possible values:
 
 =over
 
-=item no
+=item 'no'
 
 sshd(8) attempts to resolve the name from the TCP connection itself.
 
-=item yes
+=item 'yes'
 
 sshd(8) uses the name supplied by the client
 
@@ -217,19 +221,19 @@ Here are some explanations on the possible values:
 
 =over
 
-=item DEBUG
+=item 'DEBUG'
 
 Logging with this level violates the privacy of users and is not recommended
 
-=item DEBUG1
+=item 'DEBUG1'
 
 Logging with this level violates the privacy of users and is not recommended
 
-=item DEBUG2
+=item 'DEBUG2'
 
 Logging with this level violates the privacy of users and is not recommended
 
-=item DEBUG3
+=item 'DEBUG3'
 
 Logging with this level violates the privacy of users and is not recommended
 
@@ -263,7 +267,7 @@ Here are some explanations on the possible values:
 
 =over
 
-=item yes
+=item 'yes'
 
 So, you want your machine to be part of a botnet ? ;-)
 
@@ -283,16 +287,16 @@ Here are some explanations on the possible values:
 
 =over
 
-=item forced-commands-only
+=item 'forced-commands-only'
 
 root login with public key authentication will be allowed, but only if the command option has been specified (which may be useful for taking remote backups even if root login is normally not allowed).  All other authentication methods are disabled for root.
 
-=item no
+=item 'no'
 
 root is not allowed to log in
 
 
-=item without-password
+=item 'without-password'
 
 password authentication is disabled for root
 
@@ -308,7 +312,7 @@ Here are some explanations on the possible values:
 
 =over
 
-=item yes
+=item 'yes'
 
 permits both "point-to-point" and "ethernet"
 
@@ -377,11 +381,11 @@ Here are some explanations on the possible values:
 
 =over
 
-=item no
+=item 'no'
 
 disable TCP keepalive messages
 
-=item yes
+=item 'yes'
 
 Send TCP keepalive messages. The server will notice if the network goes down or the client host crashes. This avoids infinitely hanging sessions.
 
@@ -435,7 +439,7 @@ Specifies a match block. The criteria User, Group Host and Address can contain p
 
 =item *
 
-L<config-edit>
+L<cme>
 
 =item *
 

@@ -9,7 +9,7 @@
 #
 package Config::Model::Backend::OpenSsh::Ssh ;
 {
-  $Config::Model::Backend::OpenSsh::Ssh::VERSION = '1.221';
+  $Config::Model::Backend::OpenSsh::Ssh::VERSION = '1.222';
 }
 
 use Any::Moose ;
@@ -164,7 +164,7 @@ sub write_all_host_block {
 
     my $result = '' ;
 
-    foreach my $pattern ( $host_elt->get_all_indexes) {
+    foreach my $pattern ( $host_elt->fetch_all_indexes) {
 	my $block_elt = $host_elt->fetch_with_id($pattern) ;
         $logger->debug("write_all_host_block on ".$block_elt->location." mode $mode");
 	my $block_data = $self->write_node_content($block_elt,'custom') ;

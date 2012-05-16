@@ -9,7 +9,7 @@
 #
 package Config::Model::Backend::OpenSsh ;
 {
-  $Config::Model::Backend::OpenSsh::VERSION = '1.221';
+  $Config::Model::Backend::OpenSsh::VERSION = '1.222';
 }
 
 use Any::Moose ;
@@ -171,7 +171,7 @@ sub write_node_content {
 	    map { $result .= $self->write_line($name,$_->fetch($mode), $_->annotation) ;} $elt->fetch_all() ;
 	}
 	elsif ($type eq 'hash') {
-	    foreach my $k ( $elt->get_all_indexes ) {
+	    foreach my $k ( $elt->fetch_all_indexes ) {
 		my $o = $elt->fetch_with_id($k);
 		my $v = $o->fetch($mode) ;
 		$result .=  $self->write_line($name,"$k $v", $o->annotation) ;

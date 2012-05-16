@@ -33,7 +33,7 @@ Define the Address criteria of a conditional block. The value of this field is a
 
 =item *
 
-L<config-edit>
+L<cme>
 
 =back
 

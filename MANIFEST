@@ -33,6 +33,9 @@ t/augeas_match.t
 t/augeas_sshd.t
 t/custom_sshd.t
 t/custom_sshd_match.t
+t/model_tests.d/sshd-examples/debian-671367
+t/model_tests.d/sshd-test-conf.pl
+t/model_tests.t
 t/pod.t
 t/release-pod-syntax.t
 t/ssh_config.t

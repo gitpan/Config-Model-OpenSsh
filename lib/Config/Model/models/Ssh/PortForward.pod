@@ -41,7 +41,7 @@ Port number to connect the tunnel to.I<< Mandatory. Type uniline.  >>
 
 =item *
 
-L<config-edit>
+L<cme>
 
 =back
 
