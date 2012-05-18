@@ -3,9 +3,14 @@ abstract: 'OpenSsh config editor'
 author:
   - 'Dominique Dumont'
 build_requires:
+  File::Copy::Recursive: 0
   Module::Build: 0.3601
   Test::Differences: 0
+  Test::Exception: 0
+  Test::File::Contents: 0
+  Test::Memory::Cycle: 0
   Test::More: 0
+  Test::Warn: 0
 configure_requires:
   Any::Moose: 0
   Config::Model: 2.015
@@ -23,4 +28,4 @@ recommends:
   Config::Model::Backend::Augeas: 0
   Config::Model::CursesUI: 0
   Config::Model::TkUI: 0
-version: 1.222
+version: 1.223

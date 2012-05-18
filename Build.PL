@@ -45,9 +45,14 @@ my $build = Module::Build->new
    model_files => \%model_files ,
  
   'build_requires' => {
+    'File::Copy::Recursive' => '0',
     'Module::Build' => '0.3601',
     'Test::Differences' => '0',
-    'Test::More' => '0'
+    'Test::Exception' => '0',
+    'Test::File::Contents' => '0',
+    'Test::Memory::Cycle' => '0',
+    'Test::More' => '0',
+    'Test::Warn' => '0'
   },
   'configure_requires' => {
     'Any::Moose' => '0',
