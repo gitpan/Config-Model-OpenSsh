@@ -9,7 +9,7 @@
 #
 package Config::Model::Backend::OpenSsh ;
 {
-  $Config::Model::Backend::OpenSsh::VERSION = '1.223';
+  $Config::Model::Backend::OpenSsh::VERSION = '1.224';
 }
 
 use Any::Moose ;
@@ -131,6 +131,25 @@ sub write_line {
     return $self->write_data_and_comments( undef, '#',sprintf("%-20s %s",$k,$v),$note) ;
 }
 
+sub write_list {
+    my ($self,$name,$mode,$elt) = @_;
+    my @r = map { $self->write_line($name,$_->fetch($mode), $_->annotation) ;} $elt->fetch_all() ;
+    return join('',@r) ;
+}
+
+
+sub write_list_in_one_line {
+    my ($self,$name,$mode,$elt) = @_;
+    my @v = $elt->fetch_all_values(mode => $mode) ;
+    return $self->write_line($name,join(' ',@v)) ;    
+}
+
+# list there list element that must be written on one line with items
+# separated by a white space
+my %list_as_one_line = (
+    'AuthorizedKeysFile' => 1 ,
+) ;
+
 sub write_node_content {
     my $self= shift ;
     my $node = shift ;
@@ -168,7 +187,8 @@ sub write_node_content {
 	}
 	elsif ($type eq 'list') { 
 	    $result .= $self->write_data_and_comments(undef,'#', undef, $note) ; 
-	    map { $result .= $self->write_line($name,$_->fetch($mode), $_->annotation) ;} $elt->fetch_all() ;
+	    $result .= $list_as_one_line{$name} ? $self->write_list_in_one_line($name,$mode,$elt)
+                    :                             $self->write_list($name,$mode,$elt) ;
 	}
 	elsif ($type eq 'hash') {
 	    foreach my $k ( $elt->fetch_all_indexes ) {

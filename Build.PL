@@ -55,16 +55,18 @@ my $build = Module::Build->new
     'Test::Warn' => '0'
   },
   'configure_requires' => {
-    'Any::Moose' => '0',
-    'Config::Model' => '2.015',
-    'File::Slurp' => '0',
-    'Log::Log4perl' => '1.11',
     'Module::Build' => '0.3601'
   },
   'recommends' => {
     'Config::Model::Backend::Augeas' => '0',
     'Config::Model::CursesUI' => '0',
     'Config::Model::TkUI' => '0'
+  },
+  'requires' => {
+    'Any::Moose' => '0',
+    'Config::Model' => '2.017',
+    'File::Slurp' => '0',
+    'Log::Log4perl' => '1.11'
   },
 
     meta_merge => {
