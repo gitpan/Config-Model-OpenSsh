@@ -34,11 +34,13 @@ Specifies whether TCP forwarding is permitted. The default is "yes".Note that di
 
 =head2 AuthorizedKeysFile2
 
-Specifies the file that contains the public keys that can be used for user authentication. AuthorizedKeysFile may contain tokens of the form %T which are substituted during connection setup.I<< Optional. Type list of uniline.  >>
+Specifies the file that contains the public keys that can be used for user authentication. AuthorizedKeysFile may contain tokens of the form %T which are substituted during connection setup.B<Deprecated> I<< Optional. Type list of uniline.  >>
 
 =head2 AuthorizedKeysFile
 
 Specifies the file that contains the public keys that can be used for user authentication. AuthorizedKeysFile may contain tokens of the form %T which are substituted during connection setup.I<< Optional. Type list of uniline.  >>
+
+Note: AuthorizedKeysFile values are migrated from '- AuthorizedKeysFile2'
 
 =head2 Banner
 
@@ -371,7 +373,7 @@ Gives the facility code that is used when logging messages from sshd(8). The def
 
 =head2 KeepAlive
 
-I<< Optional. Type enum. choice: 'no', 'yes'.  >>
+B<Deprecated> I<< Optional. Type enum. choice: 'no', 'yes'.  >>
 
 =head2 TCPKeepAlive
 
@@ -392,6 +394,8 @@ Send TCP keepalive messages. The server will notice if the network goes down or 
 =back
 
 
+
+Note: TCPKeepAlive is migrated with 'C<$keep_alive>' and with $keep_alive => "C<- KeepAlive>"
 
 =head2 UseDNS
 

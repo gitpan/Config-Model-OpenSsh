@@ -1,0 +1,45 @@
+
+=head2 Config::Model::OpenSsh - OpenSsh graphical configuration editor
+
+This module provides a graphical configuration editor for
+C</etc/ssh/sshd_config> and C</etc/ssh/ssh_config> (for root) and
+C<~/.ssh/config> for non-root users.
+
+=head2 Main dependencies
+
+=over
+
+=item *
+
+L<Config::Model::TkUI>
+
+=item *
+
+L<Config::Model>
+
+=back
+
+Once this module is installed, you can run:
+
+ # cme edit sshd
+
+If L<cme> fails to load your C<sshd_config>, you can try L<cme> with
+C<-force> option.
+
+Likewise, you can edit your C<~/.ssh/config> file with:
+
+ $ cme edit ssh
+
+Or to edit C</etc/ssh/ssh_config>, run as root:
+
+ # cme edit ssh
+
+=head2 Installation from git
+
+Make sure that L<Config::Model> and C<Dist::Zilla> are installed.
+
+ dzil build
+
+If you want to install this software without packaging, you can also run:
+
+ dzil install
