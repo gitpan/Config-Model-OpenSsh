@@ -38,14 +38,14 @@ inside a Host directive of a ssh configuration.',
         'value_type' => 'boolean',
         'upstream_default' => '0',
         'type' => 'leaf',
-        'description' => "If set to 'yes', passphrase/password querying will be disabled. In addition, the ServerAliveInterval option will be set to 300 seconds by default. This option is useful in scripts and other batch jobs where no user is present to supply the password, and where it is desirable to detect a broken network swiftly. "
+        'description' => 'If set to \'yes\', passphrase/password querying will be disabled. In addition, the ServerAliveInterval option will be set to 300 seconds by default. This option is useful in scripts and other batch jobs where no user is present to supply the password, and where it is desirable to detect a broken network swiftly. '
       },
       'BindAddress',
       {
         'value_type' => 'uniline',
         'experience' => 'advanced',
         'type' => 'leaf',
-        'description' => "Use the specified address on the local machine as the source address of the connection. Only useful on systems with more than one address. Note that this option does not work if UsePrivilegedPort is set to 'yes'."
+        'description' => 'Use the specified address on the local machine as the source address of the connection. Only useful on systems with more than one address. Note that this option does not work if UsePrivilegedPort is set to \'yes\'.'
       },
       'ChallengeResponseAuthentication',
       {
@@ -166,7 +166,6 @@ inside a Host directive of a ssh configuration.',
       {
         'value_type' => 'enum',
         'upstream_default' => 'no',
-        'experience' => 'master',
         'type' => 'leaf',
         'description' => 'Enables the sharing of multiple sessions over a single network connection. When set to \'yes\', ssh(1) will listen for connections on a control socket specified using the ControlPath argument. Additional sessions can connect to this socket using the same ControlPath with ControlMaster set to \'no\' (the default). These sessions will try to reuse the master instance\'s network connection rather than initiating new ones, but will fall back to connecting normally if the control socket does not exist, or is not listening.
 
@@ -188,10 +187,17 @@ Two additional options allow for opportunistic multiplexing: try to use a master
       'ControlPath',
       {
         'value_type' => 'uniline',
-        'experience' => 'master',
         'type' => 'leaf',
         'description' => 'Specify the path to the control socket used for connection sharing as described in the ControlMaster section above or the string \'none\' to disable connection sharing.  In the path, \'%l\' will be substituted by the local host name, \'%h\' will be substituted by the target host name, \'%p\' the port, and \'%r\' by the remotelogin username. It is recommended that any ControlPath used for opportunistic connection sharing include at least %h, %p, and %r. This ensures that shared connections are uniquely identified.
 '
+      },
+      'ControlPersist',
+      {
+        'value_type' => 'uniline',
+        'summary' => 'persists the master connection in the background',
+        'match' => '^(?i)yes|no|\\d+$',
+        'type' => 'leaf',
+        'description' => 'When used in conjunction with ControlMaster, specifies that the master connection should remain open in the background (waiting for future client connections) after the initial client connection has been closed. If set to ``no\'\', then the master connection will not be placed into the background, and will close as soon as the initial client connection is closed. If set to ``yes\'\', then the master connection will remain in the background indef- initely (until killed or closed via a mechanism such as the ssh(1) ``-O exit\'\' option). If set to a time in seconds, or a time in any of the formats documented in sshd_config(5), then the backgrounded master connection will automatically terminate after it has remained idle (with no client connections) for the specified time.'
       },
       'DynamicForward',
       {
@@ -560,6 +566,24 @@ This directive is useful in conjunction with nc(1) and its proxy support. For ex
         'description' => 'Specifies that a TCP port on the remote machine be forwarded over the secure channel to the specified host and port from the local machine. Multiple forwardings may be specified, and additional forwardings can be given on the command line. Only the superuser can forward privileged ports.
 
 If the bind_address is not specified, the default is to only bind to loopback addresses. If the bind_address is \'*\' or an empty string, then the forwarding is requested to listen on all inter faces. Specifying a remote bind_address will only succeed if the server\'s GatewayPorts option is enabled (see sshd_config(5)).'
+      },
+      'RequestTTY',
+      {
+        'value_type' => 'enum',
+        'help' => {
+          'yes' => 'always request a TTY when standard input is a TTY',
+          'auto' => 'request a TTY when opening a login session',
+          'no' => 'never request a TTY',
+          'force' => 'always request a TTY'
+        },
+        'type' => 'leaf',
+        'description' => 'Specifies whether to request a pseudo-tty for the session. This option mirrors the -t and -T flags for C<ssh>.',
+        'choice' => [
+          'yes',
+          'no',
+          'force',
+          'auto'
+        ]
       },
       'RhostsRSAAuthentication',
       {

@@ -9,7 +9,7 @@
 #
 package Config::Model::Backend::OpenSsh ;
 {
-  $Config::Model::Backend::OpenSsh::VERSION = '1.225';
+  $Config::Model::Backend::OpenSsh::VERSION = '1.226';
 }
 
 use Any::Moose ;
@@ -77,7 +77,7 @@ sub read_ssh_file {
         my $i = 0;
         while ( $i < @dispatch ) {
             my ( $regexp, $sub ) = @dispatch[ $i++, $i++ ];
-            if ( $k =~ $regexp ) {
+            if ( $k =~ $regexp and $self->can($sub)) {
                 $logger->trace("read_ssh_file: dispatch calls $sub");
                 $self->$sub( $config_root, $k, \@v, $comment );
                 last;

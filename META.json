@@ -1,0 +1,73 @@
+{
+   "abstract" : "OpenSsh config editor",
+   "author" : [
+      "Dominique Dumont"
+   ],
+   "dynamic_config" : 0,
+   "generated_by" : "Dist::Zilla version 4.300028, CPAN::Meta::Converter version 2.120921",
+   "license" : [
+      "lgpl_2_1"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "Config-Model-OpenSsh",
+   "prereqs" : {
+      "build" : {
+         "requires" : {
+            "File::Copy::Recursive" : "0",
+            "Module::Build" : "0.3601",
+            "Test::Differences" : "0",
+            "Test::Exception" : "0",
+            "Test::File::Contents" : "0",
+            "Test::Memory::Cycle" : "0",
+            "Test::More" : "0",
+            "Test::Warn" : "0"
+         }
+      },
+      "configure" : {
+         "requires" : {
+            "Any::Moose" : "0",
+            "Config::Model" : "2.026",
+            "File::Slurp" : "0",
+            "Log::Log4perl" : "1.11",
+            "Module::Build" : "0.3601"
+         }
+      },
+      "develop" : {
+         "requires" : {
+            "Test::Pod" : "1.41"
+         }
+      },
+      "runtime" : {
+         "recommends" : {
+            "Config::Model::Backend::Augeas" : "0",
+            "Config::Model::CursesUI" : "0",
+            "Config::Model::TkUI" : "0"
+         },
+         "requires" : {
+            "Any::Moose" : "0",
+            "Config::Model" : "2.026",
+            "File::Slurp" : "0",
+            "Log::Log4perl" : "1.11",
+            "Tk" : "0"
+         }
+      }
+   },
+   "release_status" : "stable",
+   "resources" : {
+      "bugtracker" : {
+         "mailto" : "bug-project@rt.cpan.org",
+         "web" : "http://rt.cpan.org/NoAuth/Bugs.html?Dist=Config-Model-OpenSsh"
+      },
+      "homepage" : "https://github.com/dod38fr/config-model/wiki",
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/dod38fr/config-model-openssh.git",
+         "web" : "http://github.com/dod38fr/config-model-openssh.git"
+      }
+   },
+   "version" : "1.226"
+}
+

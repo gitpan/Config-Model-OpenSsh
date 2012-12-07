@@ -88,6 +88,10 @@ I<< Optional. Type enum. choice: 'no', 'yes', 'ask', 'auto', 'autoask'. upstream
 Specify the path to the control socket used for connection sharing as described in the ControlMaster section above or the string 'none' to disable connection sharing.  In the path, '%l' will be substituted by the local host name, '%h' will be substituted by the target host name, '%p' the port, and '%r' by the remotelogin username. It is recommended that any ControlPath used for opportunistic connection sharing include at least %h, %p, and %r. This ensures that shared connections are uniquely identified.
 I<< Optional. Type uniline.  >>
 
+=head2 ControlPersist - persists the master connection in the background
+
+When used in conjunction with ControlMaster, specifies that the master connection should remain open in the background (waiting for future client connections) after the initial client connection has been closed. If set to ``no'', then the master connection will not be placed into the background, and will close as soon as the initial client connection is closed. If set to ``yes'', then the master connection will remain in the background indef- initely (until killed or closed via a mechanism such as the ssh(1) ``-O exit'' option). If set to a time in seconds, or a time in any of the formats documented in sshd_config(5), then the backgrounded master connection will automatically terminate after it has remained idle (with no client connections) for the specified time.I<< Optional. Type uniline.  >>
+
 =head2 DynamicForward
 
 Specifies that a TCP port on the local machine be forwarded over the secure channel, and the application protocol is then used to determine where to connect to from the remote machine.
@@ -265,6 +269,34 @@ Specifies the maximum amount of data that may be transmitted before the session 
 Specifies that a TCP port on the remote machine be forwarded over the secure channel to the specified host and port from the local machine. Multiple forwardings may be specified, and additional forwardings can be given on the command line. Only the superuser can forward privileged ports.
 
 If the bind_address is not specified, the default is to only bind to loopback addresses. If the bind_address is '*' or an empty string, then the forwarding is requested to listen on all inter faces. Specifying a remote bind_address will only succeed if the server's GatewayPorts option is enabled (see sshd_config(5)).I<< Optional. Type list of node.  >>
+
+=head2 RequestTTY
+
+Specifies whether to request a pseudo-tty for the session. This option mirrors the -t and -T flags for C<ssh>.I<< Optional. Type enum. choice: 'yes', 'no', 'force', 'auto'.  >>
+
+Here are some explanations on the possible values:
+
+=over
+
+=item 'auto'
+
+request a TTY when opening a login session
+
+=item 'force'
+
+always request a TTY
+
+=item 'no'
+
+never request a TTY
+
+=item 'yes'
+
+always request a TTY when standard input is a TTY
+
+=back
+
+
 
 =head2 RhostsRSAAuthentication
 

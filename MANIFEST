@@ -3,9 +3,9 @@ ChangeLog
 LICENSE
 MANIFEST
 MANIFEST.SKIP
+META.json
 META.yml
 README.pod
-TODO
 demo/maintainer-demo.pl
 demo/user-demo.pl
 lib/Config/Model/Backend/OpenSsh.pm
