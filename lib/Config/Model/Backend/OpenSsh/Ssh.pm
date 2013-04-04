@@ -9,10 +9,10 @@
 #
 package Config::Model::Backend::OpenSsh::Ssh ;
 {
-  $Config::Model::Backend::OpenSsh::Ssh::VERSION = '1.226';
+  $Config::Model::Backend::OpenSsh::Ssh::VERSION = '1.227';
 }
 
-use Any::Moose ;
+use Mouse ;
 extends "Config::Model::Backend::OpenSsh" ;
 
 use Carp ;
@@ -205,7 +205,7 @@ sub write_forward {
 }
 1;
 
-no Any::Moose;
+no Mouse;
 
 __END__
 

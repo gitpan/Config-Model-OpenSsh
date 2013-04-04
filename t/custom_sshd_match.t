@@ -17,8 +17,6 @@ my $arg = shift || '';
 my ($log,$show) = (0) x 2 ;
 
 my $trace = $arg =~ /t/ ? 1 : 0 ;
-$::verbose          = 1 if $arg =~ /v/;
-$::debug            = 1 if $arg =~ /d/;
 $log                = 1 if $arg =~ /l/;
 $show               = 1 if $arg =~ /s/;
 
@@ -29,12 +27,6 @@ if ($log and -e $log4perl_user_conf_file ) {
 }
 else {
     Log::Log4perl->easy_init($log ? $DEBUG: $ERROR);
-}
-
-# trap warning if Augeas backend is not installed
-if (not  eval {require Config::Model::Backend::Augeas; } ) {
-    # do not use Test::Warnings with this
-    $SIG{__WARN__} = sub { warn $_[0] unless $_[0] =~ /unknown backend/};
 }
 
 my $model = Config::Model -> new ( ) ;

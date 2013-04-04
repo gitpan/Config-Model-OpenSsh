@@ -7,7 +7,7 @@
 #
 #   The GNU Lesser General Public License, Version 2.1, February 1999
 #
-#    Copyright (c) 2008-2012 Dominique Dumont.
+#    Copyright (c) 2008-2013 Dominique Dumont.
 #
 #    This file is part of Config-Model-OpenSsh.
 #
@@ -27,7 +27,6 @@
 #    02110-1301 USA
 
 use Module::Build;
-use Data::Dumper ;
 
 use warnings FATAL => qw(all) ;
 use strict ;
@@ -71,22 +70,17 @@ my $build = $class->new
     'Test::Warn' => '0'
   },
   'configure_requires' => {
-    'Any::Moose' => '0',
     'Config::Model' => '2.026',
-    'File::Slurp' => '0',
-    'Log::Log4perl' => '1.11',
     'Module::Build' => '0.3601'
   },
   'recommends' => {
-    'Config::Model::Backend::Augeas' => '0',
     'Config::Model::CursesUI' => '0',
     'Config::Model::TkUI' => '0'
   },
   'requires' => {
-    'Any::Moose' => '0',
     'Config::Model' => '2.026',
-    'File::Slurp' => '0',
     'Log::Log4perl' => '1.11',
+    'Mouse' => '0',
     'Tk' => '0'
   },
 

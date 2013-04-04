@@ -12,30 +12,25 @@ build_requires:
   Test::More: 0
   Test::Warn: 0
 configure_requires:
-  Any::Moose: 0
   Config::Model: 2.026
-  File::Slurp: 0
-  Log::Log4perl: 1.11
   Module::Build: 0.3601
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300028, CPAN::Meta::Converter version 2.120921'
+generated_by: 'Dist::Zilla version 4.300032, CPAN::Meta::Converter version 2.120921'
 license: lgpl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: Config-Model-OpenSsh
 recommends:
-  Config::Model::Backend::Augeas: 0
   Config::Model::CursesUI: 0
   Config::Model::TkUI: 0
 requires:
-  Any::Moose: 0
   Config::Model: 2.026
-  File::Slurp: 0
   Log::Log4perl: 1.11
+  Mouse: 0
   Tk: 0
 resources:
   bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=Config-Model-OpenSsh
   homepage: https://github.com/dod38fr/config-model/wiki
   repository: git://github.com/dod38fr/config-model-openssh.git
-version: 1.226
+version: 1.227
