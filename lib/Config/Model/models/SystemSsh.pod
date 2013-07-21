@@ -1,15 +1,25 @@
 =head1 NAME
 
-Config::Model::models::Ssh::HostElement - Configuration class Ssh::HostElement
+Config::Model::models::SystemSsh - Configuration class SystemSsh
 
 =head1 DESCRIPTION
 
 Configuration classes used by L<Config::Model>
 
-Configuration class that represents all parameters available 
-inside a Host directive of a ssh configuration.
+Configuration class used by L<Config::Model> to edit or 
+validate /etc/ssh/ssh_config (as root)
+
 
 =head1 Elements
+
+=head2 EnableSSHKeysign
+
+Setting this option to 'yes' in the global client configuration file /etc/ssh/ssh_config enables the use of the helper program ssh-keysign(8) during HostbasedAuthentication.  See ssh-keysign(8)for more information.
+I<< Optional. Type boolean. upstream_default: '0'.  >> 
+
+=head2 Host
+
+The declarations make in 'parameters' are applied only to the hosts that match one of the patterns given in pattern elements. A single '*' as a pattern can be used to provide global defaults for all hosts. The host is the hostname argument given on the command line (i.e. the name is not converted to a canonicalized host name before matching). Since the first obtained value for each parameter is used, more host-specific declarations should be given near the beginning of the hash (which takes order into account), and general defaults at the end.I<< Optional. Type hash of node of class L<Ssh::HostElement|Config::Model::models::Ssh::HostElement> .  >> 
 
 =head2 AddressFamily
 
@@ -374,6 +384,10 @@ L<cme>
 
 =item *
 
+L<Config::Model::models::Ssh::HostElement>
+
+=item *
+
 L<Config::Model::models::Ssh::PortForward>
 
 =back
@@ -391,7 +405,7 @@ L<Config::Model::models::Ssh::PortForward>
 
 =over
 
-=item 2009-2011 Dominique Dumont
+=item 2013 Dominique Dumont
 
 
 =back

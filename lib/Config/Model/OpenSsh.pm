@@ -9,14 +9,14 @@
 #
 package Config::Model::OpenSsh ;
 {
-  $Config::Model::OpenSsh::VERSION = '1.227';
+  $Config::Model::OpenSsh::VERSION = '1.228';
 }
 
 1;
 
 =head1 NAME
 
-Config::Model::OpenSsh - OpenSsh config editor
+Config::Model::OpenSsh - OpenSSH config editor
 
 =head1 SYNOPSIS
 
@@ -47,7 +47,7 @@ This code snippet will remove the C<Host Foo> section added above:
 =head1 DESCRIPTION
 
 This module provides a configuration editors (and models) for the 
-configuration files of OpenSsh. (C</etc/ssh/sshd_config>, F</etc/ssh/ssh_config>
+configuration files of OpenSSH. (C</etc/ssh/sshd_config>, F</etc/ssh/ssh_config>
 and C<~/.ssh/config>).
 
 This module can also be used to modify safely the

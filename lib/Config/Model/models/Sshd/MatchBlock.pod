@@ -15,11 +15,11 @@ parameters to apply to the matched items.
 
 =head2 Condition
 
-Specify the condition (User, Group, Host, Adress) necessary for this Match block to be applied. I<< Optional. Type node.  >>
+Specify the condition (User, Group, Host, Adress) necessary for this Match block to be applied. I<< Optional. Type node of class L<Sshd::MatchCondition|Config::Model::models::Sshd::MatchCondition> .  >> 
 
 =head2 Settings
 
-Defines the sshd_config parameters that will override general settings when all defined User, Group, Host and Address patterns match.I<< Optional. Type node.  >>
+Defines the sshd_config parameters that will override general settings when all defined User, Group, Host and Address patterns match.I<< Optional. Type node of class L<Sshd::MatchElement|Config::Model::models::Sshd::MatchElement> .  >> 
 
 =head1 SEE ALSO
 

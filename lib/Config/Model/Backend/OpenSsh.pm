@@ -9,7 +9,7 @@
 #
 package Config::Model::Backend::OpenSsh ;
 {
-  $Config::Model::Backend::OpenSsh::VERSION = '1.227';
+  $Config::Model::Backend::OpenSsh::VERSION = '1.228';
 }
 
 use Mouse ;
@@ -38,35 +38,28 @@ my @dispatch = (
     qr/\w/                     => 'assign',
 );
 
-sub skip_open { 1 ;} # tell AutoRead not to try to open a file
+sub suffix {return '';}
 
-sub read_ssh_file {
+sub read {
     my $self = shift ;
     my %args = @_ ;
     my $config_root = $args{object}
       || croak __PACKAGE__," read_ssh_file: undefined config root object";
-    my $dir = $args{root}.$args{config_dir} ;
-    my $skip_notes = $args{skip_notes} || 0 ;
 
-    unless (-d $dir ) {
-	$logger->info("read_ssh_file: unknown config dir $dir");
-	return 0;
+    $logger->info("loading config file ".$args{file_path});
+
+    my $fh = $args{io_handle} ;
+    if (not defined $fh) {
+        $logger->warn("cannot read $args{file_path}");
+        return 0;
     }
-
-    my $file = $dir.'/'.$args{file} ;
-    unless (-r "$file") {
-	$logger->info("read_ssh_file: unknown file $file");
-	return 0;
-    }
-
-    $logger->info("loading config file $file");
-
-    my $fh = IO::File->new( $file, "r")  
-        || die __PACKAGE__," read_ssh_file: can't open $file:$!";
 
     my @lines = $fh->getlines ;
     # try to get global comments (comments before a blank line)
     $self->read_global_comments(\@lines,'#') ;
+
+    # need to reset this when reading user ssh file after system ssh file
+    $self->current_node($config_root) ;
 
     my @assoc = $self->associates_comments_with_data( \@lines, '#' ) ;
     foreach my $item (@assoc) {
@@ -90,10 +83,29 @@ sub read_ssh_file {
     return 1;
 }
 
+sub ssh_write {
+    my $self = shift ;
+    my %args = @_ ;
+
+    my $config_root = $args{object}
+      || croak __PACKAGE__," ssh_write: undefined config root object";
+
+    $logger->info("writing config file $args{file_path}");
+
+    my $ioh = $args{io_handle} || croak __PACKAGE__," ssh_write: undefined io_handle";;
+    $self->write_global_comment($ioh,'#') ;
+
+    my $result = $self->write_node_content($config_root,$args{ssh_mode});
+
+    $ioh->print ($result);
+
+    return 1;
+}
+
 sub assign {
     my ($self,$root, $raw_key,$arg,$comment) = @_ ;
     $logger->debug("assign: $raw_key @$arg # $comment");
-    $self->current_node($root) unless defined $self->current_node ;
+
 
     # keys are case insensitive, try to find a match
     my $key = $self->current_node->find_element ($raw_key, case => 'any') ;

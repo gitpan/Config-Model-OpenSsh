@@ -9,7 +9,7 @@
 #
 package Config::Model::Backend::OpenSsh::Sshd ;
 {
-  $Config::Model::Backend::OpenSsh::Sshd::VERSION = '1.227';
+  $Config::Model::Backend::OpenSsh::Sshd::VERSION = '1.228';
 }
 
 use Mouse ;
@@ -23,12 +23,6 @@ use File::Path ;
 
 my $logger = Log::Log4perl::get_logger("Backend::OpenSsh");
 
-sub suffix {return } 
-
-sub read {
-    my $self = shift ;
-    $self->read_ssh_file( @_,  file => 'sshd_config',) ;
-}
 
 sub _host {
     my ($self,$root,$patterns,$comment)  = @_;
@@ -95,91 +89,13 @@ sub match {
 
 
 # now the write part
-
 sub write {
-    my $self = shift ;
-    my %args = @_ ;
-    my $config_root = $args{object}
-      || croak __PACKAGE__," sshd_write: undefined config root object";
-    my $dir = $args{root}.$args{config_dir} ;
-
-    mkpath($dir, {mode => 0755} )  unless -d $dir ;
-
-    my $file = "$dir/sshd_config" ;
-    if (-r "$file") {
-	my $backup = "$file.".time.".bak" ;
-	$logger->info("Backing up file $file in $backup");
-	copy($file,$backup);
-    }
-
-    $logger->info("writing config file $file");
-
-    my $ioh = IO::File->new ;
-    $ioh-> open($file,">") || die "cannot open $file:$!";
-    $self->write_global_comment($ioh,'#') ;
-
-    my $result = $self->write_node_content($config_root);
-
-    #print $result ;
-    $ioh->print ($result);
-    $ioh -> close ;
-
-    return 1;
+    my $self = shift;
+    $self->ssh_write(@_) ;
 }
 
 sub _write_line {
     return sprintf("%-20s %s\n",@_) ;
-}
-
-sub _write_node_content {
-    my $self = shift ;
-    my $node = shift ;
-    my $mode = shift || '';
-
-    my $result = '' ;
-    my $match  = '' ;
-
-    foreach my $name ($node->get_element_name(for => 'master') ) {
-	next unless $node->is_element_defined($name) ;
-	my $elt = $node->fetch_element($name) ;
-	my $type = $elt->get_type;
-
-	#print "got $key type $type and ",join('+',@arg),"\n";
-	if    ($name eq 'Match') { 
-	    $match .= write_all_match_block($elt,$mode) ;
-	}
-	elsif    ($name eq 'Host') { 
-	    $match .= write_all_host_block($elt,$mode) ;
-	}
-	elsif    ($name =~ /^(Local|Remote)Forward$/) { 
-	    map { $result .= write_forward($_,$mode) ;} $elt->fetch_all() ;
-	}
-	elsif    ($type eq 'leaf') { 
-	    my $v = $elt->fetch($mode) ;
-	    if (defined $v and $elt->value_type eq 'boolean') {
-		$v = $v == 1 ? 'yes':'no' ;
-	    }
-	    $result .= write_line($name,$v) if defined $v;
-	}
-	elsif    ($type eq 'check_list') { 
-	    my $v = $elt->fetch($mode) ;
-	    $result .= write_line($name,$v) if defined $v and $v;
-	}
-	elsif ($type eq 'list') { 
-	    map { $result .= write_line($name,$_) ;} $elt->fetch_all_values($mode) ;
-	}
-	elsif ($type eq 'hash') {
-	    foreach my $k ( $elt->get_all_indexes ) {
-		my $v = $elt->fetch_with_id($k)->fetch($mode) ;
-		$result .=  write_line($name,"$k $v") ;
-	    }
-	}
-	else {
-	    die "OpenSsh::write did not expect $type for $name\n";
-	}
-    }
-
-    return $result.$match ;
 }
 
 sub write_all_match_block {
