@@ -1,4 +1,8 @@
-{{$NEXT}}
+1.229 2013-07-23
+
+    * fixed dist::zilla files to include .ssh dir needed for tests
+
+1.228    2013-07-21
 
 	[ Usage changes ]
 

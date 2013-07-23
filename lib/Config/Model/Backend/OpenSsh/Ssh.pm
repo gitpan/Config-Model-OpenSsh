@@ -1,16 +1,13 @@
 #
 # This file is part of Config-Model-OpenSsh
 #
-# This software is Copyright (c) 2012 by Dominique Dumont.
+# This software is Copyright (c) 2013 by Dominique Dumont.
 #
 # This is free software, licensed under:
 #
 #   The GNU Lesser General Public License, Version 2.1, February 1999
 #
 package Config::Model::Backend::OpenSsh::Ssh ;
-{
-  $Config::Model::Backend::OpenSsh::Ssh::VERSION = '1.228';
-}
 
 use Mouse ;
 use 5.10.1;
