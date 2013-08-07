@@ -8,6 +8,9 @@
 #   The GNU Lesser General Public License, Version 2.1, February 1999
 #
 package Config::Model::Backend::OpenSsh::Sshd ;
+{
+  $Config::Model::Backend::OpenSsh::Sshd::VERSION = '1.230_01';
+}
 
 use Mouse ;
 extends "Config::Model::Backend::OpenSsh" ;

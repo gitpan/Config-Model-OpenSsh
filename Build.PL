@@ -70,7 +70,7 @@ my $build = $class->new
     'Test::Warn' => '0'
   },
   'configure_requires' => {
-    'Config::Model' => '2.026',
+    'Config::Model' => '2.040',
     'Module::Build' => '0.3601'
   },
   'recommends' => {
