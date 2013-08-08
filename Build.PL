@@ -78,6 +78,7 @@ my $build = $class->new
     'Config::Model::TkUI' => '0'
   },
   'requires' => {
+    'AnyEvent' => '0',
     'Config::Model' => '2.040',
     'File::HomeDir' => '0',
     'Log::Log4perl' => '1.11',

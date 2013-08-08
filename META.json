@@ -38,6 +38,7 @@
             "Config::Model::TkUI" : "0"
          },
          "requires" : {
+            "AnyEvent" : "0",
             "Config::Model" : "2.040",
             "File::HomeDir" : "0",
             "Log::Log4perl" : "1.11",
@@ -59,6 +60,6 @@
          "web" : "http://github.com/dod38fr/config-model-openssh.git"
       }
    },
-   "version" : "1.230_01"
+   "version" : "1.230_02"
 }
 
