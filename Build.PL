@@ -60,6 +60,8 @@ my $build = $class->new
    appli_files   => \%appli_files ,
  
   'build_requires' => {
+    'AnyEvent' => '0',
+    'EV' => '0',
     'File::Copy::Recursive' => '0',
     'Module::Build' => '0.3601',
     'Test::Differences' => '0',
@@ -67,7 +69,8 @@ my $build = $class->new
     'Test::File::Contents' => '0',
     'Test::Memory::Cycle' => '0',
     'Test::More' => '0',
-    'Test::Warn' => '0'
+    'Test::Warn' => '0',
+    'Tk' => '0'
   },
   'configure_requires' => {
     'Config::Model' => '2.040',
@@ -78,12 +81,10 @@ my $build = $class->new
     'Config::Model::TkUI' => '0'
   },
   'requires' => {
-    'AnyEvent' => '0',
     'Config::Model' => '2.040',
     'File::HomeDir' => '0',
     'Log::Log4perl' => '1.11',
-    'Mouse' => '0',
-    'Tk' => '0'
+    'Mouse' => '0'
   },
 
    add_to_cleanup => [qw/wr_test/] ,
