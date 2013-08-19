@@ -32,8 +32,8 @@ lib/Config/Model/system.d/system-ssh
 lib/Config/Model/user.d/ssh
 t/custom_sshd.t
 t/custom_sshd_match.t
-t/model_tests.d/ssh-examples/basic/etc/ssh/ssh_config
-t/model_tests.d/ssh-examples/basic/home/joe/.ssh/config
+t/model_tests.d/ssh-examples/basic/system_ssh_config
+t/model_tests.d/ssh-examples/basic/user_ssh_config
 t/model_tests.d/ssh-test-conf.pl
 t/model_tests.d/sshd-examples/debian-671367
 t/model_tests.d/sshd-test-conf.pl
