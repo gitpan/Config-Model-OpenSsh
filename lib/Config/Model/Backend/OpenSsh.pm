@@ -9,7 +9,7 @@
 #
 package Config::Model::Backend::OpenSsh ;
 {
-  $Config::Model::Backend::OpenSsh::VERSION = '1.230_04';
+  $Config::Model::Backend::OpenSsh::VERSION = '1.230';
 }
 
 use Mouse ;

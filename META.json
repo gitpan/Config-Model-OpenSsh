@@ -43,7 +43,7 @@
          }
       }
    },
-   "release_status" : "testing",
+   "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
          "mailto" : "bug-project@rt.cpan.org",
@@ -56,6 +56,6 @@
          "web" : "http://github.com/dod38fr/config-model-openssh.git"
       }
    },
-   "version" : "1.230_04"
+   "version" : "1.230"
 }
 

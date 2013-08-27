@@ -35,9 +35,9 @@ t/custom_sshd_match.t
 t/model_tests.d/ssh-examples/basic/system_ssh_config
 t/model_tests.d/ssh-examples/basic/user_ssh_config
 t/model_tests.d/ssh-test-conf.pl
-t/model_tests.d/sshd-examples/debian-671367
+t/model_tests.d/sshd-examples/debian-bug-671367/system_sshd_config
 t/model_tests.d/sshd-test-conf.pl
-t/model_tests.d/system-ssh-examples/basic
+t/model_tests.d/system-ssh-examples/basic/system_ssh_config
 t/model_tests.d/system-ssh-test-conf.pl
 t/model_tests.t
 t/pod.t
