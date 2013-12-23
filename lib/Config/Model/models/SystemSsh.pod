@@ -1,3 +1,5 @@
+# PODNAME: Config::Model::models::SystemSsh
+# ABSTRACT:  Configuration class SystemSsh
 =head1 NAME
 
 Config::Model::models::SystemSsh - Configuration class SystemSsh
@@ -123,6 +125,10 @@ Specifies whether X11 connections will be automatically redirected over the secu
 X11 forwarding should be enabled with caution.  Users with the ability to bypass file permissions on the remote host (for the user's X11 authorization database) can access the local X11 dis play through the forwarded connection.  An attacker may then be able to perform activities such as keystroke monitoring if the ForwardX11Trusted option is also enabled.
 I<< Optional. Type boolean. upstream_default: '0'.  >> 
 
+=head2 ForwardX11Timeout - timeout for untrusted X11 forwarding
+
+Specify a timeout for untrusted X11 forwarding using the format described in the TIME FORMATS section of L<sshd_config(5)>. X11 connections received by L<ssh(1)> after this time will be refused. The default is to disable untrusted X11 forwarding after twenty minutes has elapsed.I<< Optional. Type uniline.  >> 
+
 =head2 ForwardX11Trusted
 
 If this option is set, remote X11 clients will have full access to the original X11 display.
@@ -132,6 +138,10 @@ If this option is not set, remote X11 clients will be considered untrusted and p
 See the X11 SECURITY extension specification for full details on the restrictions imposed on untrusted clients.
 I<< Optional. Type boolean. upstream_default: '0'.  >> 
 
+=head2 GatewayPorts
+
+Specifies whether remote hosts are allowed to connect to local forwarded ports. By default, ssh(1) binds local port forwardings to the loopback address. This prevents other remote hosts from connecting to forwarded ports. GatewayPorts can be used to specify that ssh should bind local port forwardings to the wildcard address, thus allowing remote hosts to connect to forwarded ports. I<< Optional. Type boolean. upstream_default: '0'.  >> 
+
 =head2 GlobalKnownHostsFile
 
 Specifies a file to use for the global host key database. I<< Optional. Type uniline. upstream_default: '/etc/ssh/ssh_known_hosts'.  >> 
@@ -140,10 +150,29 @@ Specifies a file to use for the global host key database. I<< Optional. Type uni
 
 Specifies whether user authentication based on GSSAPI is allowed. Note that this option applies to protocol version 2 only.I<< Optional. Type boolean. upstream_default: '0'.  >> 
 
+=head2 GSSAPIKeyExchange
+
+Specifies whether key exchange based on GSSAPI may be used. When using GSSAPI key exchange the server need not have a host key. Note that this option applies to protocol version 2 only.I<< Optional. Type boolean. default: '0'.  >> 
+
+=head2 GSSAPIClientIdentity
+
+If set, specifies the GSSAPI client identity that ssh should use when connecting to the server. The default is unset, which means that the default identity will be used.I<< Optional. Type uniline.  >> 
+
+=head2 GSSAPIServerIdentity
+
+If set, specifies the GSSAPI server identity that ssh should expect when connecting to the server. The default is unset, which means that the expected GSSAPI server identity will be determined from the target hostname.I<< Optional. Type uniline.  >> 
+
 =head2 GSSAPIDelegateCredentials
 
-Forward (delegate) credentials to the server. Note that this option applies to protocol version 2 only.
-I<< Optional. Type boolean. upstream_default: '0'.  >> 
+Forward (delegate) credentials to the server. Note that this option applies to protocol version 2 connections using GSSAPI.I<< Optional. Type boolean. upstream_default: '0'.  >> 
+
+=head2 GSSAPIRenewalForcesRekey
+
+If set to "yes" then renewal of the client's GSSAPI credentials will force the rekeying of the ssh connection. With a compatible server, this can delegate the renewed credentials to a session on the server.I<< Optional. Type boolean. default: '0'.  >> 
+
+=head2 GSSAPITrustDns
+
+Set to "yes" to indicate that the DNS is trusted to securely canonicalize the name of the host being connected to. If "no", the hostname entered on the command line will be passed untouched to the GSSAPI library. This option only applies to protocol version 2 connections using GSSAPI.I<< Optional. Type boolean. default: '0'.  >> 
 
 =head2 HashKnownHosts
 
@@ -180,6 +209,10 @@ The file name may use the tilde syntax to refer to a user's home directory or on
 It is possible to have multiple identity files specified in con figuration files; all these identities will be tried in sequence.
 I<< Optional. Type list of uniline.  >> 
 
+=head2 IPQoS - IPv4 type-of-service or DSCP class for the connection.
+
+Specifies the IPv4 type-of-service or DSCP class for the connection. Accepted values are "af11", "af12", "af13", "af21", "af22", "af23", "af31", "af32", "af33", "af41", "af42", "af43", "cs0", "cs1", "cs2", "cs3", "cs4", "cs5", "cs6", "cs7", "ef", "lowdelay", "throughput", "reliability", or a numeric value. This option may take one or two arguments, separated by whitespace. If one argument is specified, it is used as the packet class unconditionally. If two values are specified, the first is automatically selected for interactive sessions and the second for non-interactive sessions. The default is "lowdelay" for interactive sessions and "throughput" for non-interactive sessions.I<< Optional. Type uniline. upstream_default: 'lowdelay throughput'.  >> 
+
 =head2 KbdInteractiveAuthentication
 
 Specifies whether to use keyboard-interactive authentication.
@@ -189,9 +222,9 @@ I<< Optional. Type boolean. upstream_default: '1'.  >>
 
 Specifies the list of methods to use in keyboard-interactive authentication.  Multiple method names must be comma-separated. The default is to use the server specified list. The methods available vary depending on what the server supports. For an OpenSSH server, it may be zero or more of: 'bsdauth', 'pam', and 'skey'.I<< Optional. Type list of uniline.  >> 
 
-=head2 GatewayPorts
+=head2 KexAlgorithms
 
-Specifies whether remote hosts are allowed to connect to local forwarded ports. By default, ssh(1) binds local port forwardings to the loopback address. This prevents other remote hosts from connecting to forwarded ports. GatewayPorts can be used to specify that ssh should bind local port forwardings to the wildcard address, thus allowing remote hosts to connect to forwarded ports. I<< Optional. Type boolean. upstream_default: '0'.  >> 
+Specifies the available KEX (Key Exchange) algorithms.I<< Optional. Type check_list. choice: 'ecdh-sha2-nistp256', 'ecdh-sha2-nistp384', 'ecdh-sha2-nistp521', 'diffie-hellman-group-exchange-sha256', 'diffie-hellman-group-exchange-sha1', 'diffie-hellman-group14-sha1', 'diffie-hellman-group1-sha1'.  >> 
 
 =head2 LocalForward - Local port forwarding
 
@@ -234,6 +267,10 @@ Allow local command execution via the LocalCommand option or using the !command 
 =head2 LocalCommand
 
 Specifies a command to execute on the local machine after successfully connecting to the server. The command string extends to the end of the line, and is executed with the user's shell. The following escape character substitutions will be performed: '%d' (local user's home directory), '%h' (remote host name), '%l' (local host name), '%n' (host name as provided on the command line), '%p' (remote port), '%r' (remote user name) or '%u' (local user name). This directive is ignored unless PermitLocalCommand has been enabled.I<< Optional. Type uniline.  >> 
+
+=head2 PKCS11Provider
+
+Specifies which PKCS#11 provider to use. The argument to this keyword is the PKCS#11 shared library ssh(1) should use to communicate with a PKCS#11 token providing the user's private RSA key.I<< Optional. Type uniline.  >> 
 
 =head2 Port
 
@@ -373,6 +410,10 @@ If this flag is set to "yes", an ASCII art representation of the remote host key
 =head2 XAuthLocation
 
 Specifies the full pathname of the xauth(1) program.  The default is /usr/bin/X11/xauth.I<< Optional. Type uniline. upstream_default: '/usr/X11R6/bin/xauth'.  >> 
+
+=head2 IgnoreUnknown
+
+Specifies a pattern-list of unknown options to be ignored if they are encountered in configuration parsing. This may be used to suppress errors if ssh_config contains options that are unrecognised by ssh(1). It is recommended that IgnoreUnknown be listed early in the configuration file as it will not be applied to unknown options that appear before it.I<< Optional. Type uniline.  >> 
 
 =head1 SEE ALSO
 

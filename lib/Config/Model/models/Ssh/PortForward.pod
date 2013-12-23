@@ -1,3 +1,5 @@
+# PODNAME: Config::Model::models::Ssh::PortForward
+# ABSTRACT:  Configuration class Ssh::PortForward
 =head1 NAME
 
 Config::Model::models::Ssh::PortForward - Configuration class Ssh::PortForward

@@ -1,13 +1,14 @@
 # -*- cperl -*-
 
 use ExtUtils::testlib;
-use Test::More tests => 21;
+use Test::More tests => 26;
 use Config::Model ;
 use Config::Model::BackendMgr; # required for tests
 use Log::Log4perl qw(:easy) ;
 use File::Path ;
 use English;
 use Test::Differences ;
+use Test::Warn ;
 use EV;
 use AnyEvent;
 
@@ -135,7 +136,7 @@ is_deeply([split /\n/,$dump2],[split /\n/,$dump],
 
 SKIP: {
     skip "user tests when test is run as root", 7
-       unless $EUID > 0 ;
+       if $EUID == 0 ;
 
     note "Running test like user with layered config";
 
@@ -173,6 +174,19 @@ SKIP: {
     unshift @joe_orig,'EnableSSHKeysign yes';
     @joe_written = read_user_ssh($joe_file) ;
     eq_or_diff(\@joe_written,\@joe_orig,"check user .ssh/config files after modif") ;
+
+    # run test on tricky element
+    warning_like {$user_inst->load('Host:"*" IPQoS="foo bar baz"') ;} qr/skipping value/ ," too many fields warning";
+    warning_like {$user_inst->load('Host:"*" IPQoS="foo"') ;}
+        qr/skipping/ ,"bad fields warning";
+    ok($user_inst->has_error,"check errors count") ;
+    like($user_inst->error_messages,qr/"af11"/,"check error message") ;
+
+    $user_inst->load('Host:"*" IPQoS="af11 af12"') ;
+
+    # fix is pending
+    my $expect = $Config::Model::VERSION > 2.046 ? 0 : 1 ;
+    is($user_inst->has_error,$expect,"check error count after fix") ;
 }
 
 __END__

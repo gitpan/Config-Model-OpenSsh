@@ -1,3 +1,5 @@
+# PODNAME: Config::Model::models::Sshd::MatchCondition
+# ABSTRACT:  Configuration class Sshd::MatchCondition
 =head1 NAME
 
 Config::Model::models::Sshd::MatchCondition - Configuration class Sshd::MatchCondition

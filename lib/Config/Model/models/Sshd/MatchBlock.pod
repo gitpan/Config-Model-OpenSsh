@@ -1,3 +1,5 @@
+# PODNAME: Config::Model::models::Sshd::MatchBlock
+# ABSTRACT:  Configuration class Sshd::MatchBlock
 =head1 NAME
 
 Config::Model::models::Sshd::MatchBlock - Configuration class Sshd::MatchBlock
