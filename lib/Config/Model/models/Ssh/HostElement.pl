@@ -293,9 +293,9 @@ See the X11 SECURITY extension specification for full details on the restriction
       },
       'GSSAPIKeyExchange',
       {
-        'default' => '0',
         'description' => 'Specifies whether key exchange based on GSSAPI may be used. When using GSSAPI key exchange the server need not have a host key. Note that this option applies to protocol version 2 only.',
         'type' => 'leaf',
+        'upstream_default' => '0',
         'value_type' => 'boolean',
         'write_as' => [
           'no',
@@ -328,9 +328,9 @@ See the X11 SECURITY extension specification for full details on the restriction
       },
       'GSSAPIRenewalForcesRekey',
       {
-        'default' => '0',
         'description' => 'If set to "yes" then renewal of the client\'s GSSAPI credentials will force the rekeying of the ssh connection. With a compatible server, this can delegate the renewed credentials to a session on the server.',
         'type' => 'leaf',
+        'upstream_default' => '0',
         'value_type' => 'boolean',
         'write_as' => [
           'no',
@@ -339,9 +339,9 @@ See the X11 SECURITY extension specification for full details on the restriction
       },
       'GSSAPITrustDns',
       {
-        'default' => '0',
         'description' => 'Set to "yes" to indicate that the DNS is trusted to securely canonicalize the name of the host being connected to. If "no", the hostname entered on the command line will be passed untouched to the GSSAPI library. This option only applies to protocol version 2 connections using GSSAPI.',
         'type' => 'leaf',
+        'upstream_default' => '0',
         'value_type' => 'boolean',
         'write_as' => [
           'no',
@@ -440,7 +440,7 @@ return @good == @v ? 1 : 0;
 "throughput", "reliability", or a numeric value.'
           }
         },
-        'description' => "Specifies the IPv4 type-of-service or DSCP class for the connection. Accepted values are \"af11\", \"af12\", \"af13\", \"af21\", \"af22\", \"af23\", \"af31\", \"af32\", \"af33\", \"af41\", \"af42\", \"af43\", \"cs0\", \"cs1\", \"cs2\", \"cs3\", \"cs4\", \"cs5\", \"cs6\", \"cs7\", \"ef\", \"lowdelay\", \"throughput\", \"reliability\", or a numeric value. This option may take one or two arguments, separated by whitespace. If one argument is specified, it is used as the packet class unconditionally. If two values are specified, the first is automatically selected for interactive sessions and the second for non-interactive sessions. The default is \"lowdelay\" for interactive sessions and \"throughput\" for non-interactive sessions.",
+        'description' => 'Specifies the IPv4 type-of-service or DSCP class for the connection. Accepted values are "af11", "af12", "af13", "af21", "af22", "af23", "af31", "af32", "af33", "af41", "af42", "af43", "cs0", "cs1", "cs2", "cs3", "cs4", "cs5", "cs6", "cs7", "ef", "lowdelay", "throughput", "reliability", or a numeric value. This option may take one or two arguments, separated by whitespace. If one argument is specified, it is used as the packet class unconditionally. If two values are specified, the first is automatically selected for interactive sessions and the second for non-interactive sessions. The default is "lowdelay" for interactive sessions and "throughput" for non-interactive sessions.',
         'summary' => 'IPv4 type-of-service or DSCP class for the connection.',
         'type' => 'leaf',
         'upstream_default' => 'lowdelay throughput',

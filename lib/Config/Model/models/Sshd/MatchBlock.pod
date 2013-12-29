@@ -17,7 +17,7 @@ parameters to apply to the matched items.
 
 =head2 Condition
 
-Specify the condition (User, Group, Host, Adress) necessary for this Match block to be applied. I<< Optional. Type node of class L<Sshd::MatchCondition|Config::Model::models::Sshd::MatchCondition> .  >> 
+Specify the condition (User, Group, Host, Address) necessary for this Match block to be applied. I<< Optional. Type node of class L<Sshd::MatchCondition|Config::Model::models::Sshd::MatchCondition> .  >> 
 
 =head2 Settings
 
