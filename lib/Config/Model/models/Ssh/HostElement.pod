@@ -401,6 +401,14 @@ If this flag is set to "yes", an ASCII art representation of the remote host key
 
 Specifies the full pathname of the xauth(1) program.  The default is /usr/bin/X11/xauth.I<< Optional. Type uniline. upstream_default: '/usr/X11R6/bin/xauth'.  >> 
 
+=head2 UseRsh
+
+This parameter is now ignored by Ssh. B<Deprecated> I<< Optional. Type uniline.  >> 
+
+=head2 FallBackToRsh
+
+This parameter is now ignored by Ssh. B<Deprecated> I<< Optional. Type uniline.  >> 
+
 =head1 SEE ALSO
 
 =over

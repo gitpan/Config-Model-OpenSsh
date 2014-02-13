@@ -1,7 +1,7 @@
 #
 # This file is part of Config-Model-OpenSsh
 #
-# This software is Copyright (c) 2013 by Dominique Dumont.
+# This software is Copyright (c) 2014 by Dominique Dumont.
 #
 # This is free software, licensed under:
 #
@@ -854,6 +854,20 @@ See also VERIFYING HOST KEYS in ssh(1).',
         'description' => 'Specifies the full pathname of the xauth(1) program.  The default is /usr/bin/X11/xauth.',
         'type' => 'leaf',
         'upstream_default' => '/usr/X11R6/bin/xauth',
+        'value_type' => 'uniline'
+      },
+      'UseRsh',
+      {
+        'description' => 'This parameter is now ignored by Ssh',
+        'status' => 'deprecated',
+        'type' => 'leaf',
+        'value_type' => 'uniline'
+      },
+      'FallBackToRsh',
+      {
+        'description' => 'This parameter is now ignored by Ssh',
+        'status' => 'deprecated',
+        'type' => 'leaf',
         'value_type' => 'uniline'
       }
     ],

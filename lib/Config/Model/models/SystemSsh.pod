@@ -152,7 +152,7 @@ Specifies whether user authentication based on GSSAPI is allowed. Note that this
 
 =head2 GSSAPIKeyExchange
 
-Specifies whether key exchange based on GSSAPI may be used. When using GSSAPI key exchange the server need not have a host key. Note that this option applies to protocol version 2 only.I<< Optional. Type boolean. default: '0'.  >> 
+Specifies whether key exchange based on GSSAPI may be used. When using GSSAPI key exchange the server need not have a host key. Note that this option applies to protocol version 2 only.I<< Optional. Type boolean. upstream_default: '0'.  >> 
 
 =head2 GSSAPIClientIdentity
 
@@ -168,11 +168,11 @@ Forward (delegate) credentials to the server. Note that this option applies to p
 
 =head2 GSSAPIRenewalForcesRekey
 
-If set to "yes" then renewal of the client's GSSAPI credentials will force the rekeying of the ssh connection. With a compatible server, this can delegate the renewed credentials to a session on the server.I<< Optional. Type boolean. default: '0'.  >> 
+If set to "yes" then renewal of the client's GSSAPI credentials will force the rekeying of the ssh connection. With a compatible server, this can delegate the renewed credentials to a session on the server.I<< Optional. Type boolean. upstream_default: '0'.  >> 
 
 =head2 GSSAPITrustDns
 
-Set to "yes" to indicate that the DNS is trusted to securely canonicalize the name of the host being connected to. If "no", the hostname entered on the command line will be passed untouched to the GSSAPI library. This option only applies to protocol version 2 connections using GSSAPI.I<< Optional. Type boolean. default: '0'.  >> 
+Set to "yes" to indicate that the DNS is trusted to securely canonicalize the name of the host being connected to. If "no", the hostname entered on the command line will be passed untouched to the GSSAPI library. This option only applies to protocol version 2 connections using GSSAPI.I<< Optional. Type boolean. upstream_default: '0'.  >> 
 
 =head2 HashKnownHosts
 
@@ -410,6 +410,14 @@ If this flag is set to "yes", an ASCII art representation of the remote host key
 =head2 XAuthLocation
 
 Specifies the full pathname of the xauth(1) program.  The default is /usr/bin/X11/xauth.I<< Optional. Type uniline. upstream_default: '/usr/X11R6/bin/xauth'.  >> 
+
+=head2 UseRsh
+
+This parameter is now ignored by Ssh. B<Deprecated> I<< Optional. Type uniline.  >> 
+
+=head2 FallBackToRsh
+
+This parameter is now ignored by Ssh. B<Deprecated> I<< Optional. Type uniline.  >> 
 
 =head2 IgnoreUnknown
 

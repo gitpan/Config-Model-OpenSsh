@@ -1,7 +1,7 @@
 #
 # This file is part of Config-Model-OpenSsh
 #
-# This software is Copyright (c) 2013 by Dominique Dumont.
+# This software is Copyright (c) 2014 by Dominique Dumont.
 #
 # This is free software, licensed under:
 #
@@ -9,14 +9,24 @@
 #
 package Config::Model::OpenSsh ;
 {
-  $Config::Model::OpenSsh::VERSION = '1.232';
+  $Config::Model::OpenSsh::VERSION = '1.233';
 }
 
 1;
 
+__END__
+
+=pod
+
+=encoding UTF-8
+
 =head1 NAME
 
-Config::Model::OpenSsh - OpenSSH config editor
+Config::Model::OpenSsh
+
+=head1 VERSION
+
+version 1.233
 
 =head1 SYNOPSIS
 
@@ -32,7 +42,7 @@ is installed):
 This command will add a C<Host Foo> section in C<~/.ssh/config>: 
 
  cme modify ssh Host:Foo ForwardX11=yes
- 
+
 =head2 programmatic
 
 This code snippet will remove the C<Host Foo> section added above:
@@ -66,6 +76,10 @@ To edit F<~/.ssh/config>, run as a normal user:
 
  # cme edit ssh
 
+=head1 NAME
+
+Config::Model::OpenSsh - OpenSSH config editor
+
 =head1 user interfaces
 
 As mentioned in L<cme>, several user interfaces are available with C<edit> subcommand:
@@ -86,7 +100,6 @@ A Shell like interface with option C<cme edit ssh -ui shell>.
 
 =back
 
-
 =head1 AUTHOR
 
 Dominique Dumont, (ddumont at cpan dot org)
@@ -94,3 +107,17 @@ Dominique Dumont, (ddumont at cpan dot org)
 =head1 SEE ALSO
 
 L<cme>, L<Config::Model>,
+
+=head1 AUTHOR
+
+Dominique Dumont
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2014 by Dominique Dumont.
+
+This is free software, licensed under:
+
+  The GNU Lesser General Public License, Version 2.1, February 1999
+
+=cut

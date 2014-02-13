@@ -1,7 +1,7 @@
 #
 # This file is part of Config-Model-OpenSsh
 #
-# This software is Copyright (c) 2013 by Dominique Dumont.
+# This software is Copyright (c) 2014 by Dominique Dumont.
 #
 # This is free software, licensed under:
 #
@@ -9,7 +9,7 @@
 #
 package Config::Model::Backend::OpenSsh::Ssh ;
 {
-  $Config::Model::Backend::OpenSsh::Ssh::VERSION = '1.232';
+  $Config::Model::Backend::OpenSsh::Ssh::VERSION = '1.233';
 }
 
 use Mouse ;
@@ -132,9 +132,17 @@ no Mouse;
 
 __END__
 
+=pod
+
+=encoding UTF-8
+
 =head1 NAME
 
-Config::Model::Backend::OpenSsh::Ssh - Backend for ssh configuration files
+Config::Model::Backend::OpenSsh::Ssh
+
+=head1 VERSION
+
+version 1.233
 
 =head1 SYNOPSIS
 
@@ -143,6 +151,10 @@ None
 =head1 DESCRIPTION
 
 This calls provides a backend to read and write ssh client configuration files.
+
+=head1 NAME
+
+Config::Model::Backend::OpenSsh::Ssh - Backend for ssh configuration files
 
 =head1 STOP
 
@@ -173,3 +185,17 @@ Dominique Dumont, (ddumont at cpan dot org)
 =head1 SEE ALSO
 
 L<cme>, L<Config::Model>, L<Config::Model::OpenSsh>
+
+=head1 AUTHOR
+
+Dominique Dumont
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2014 by Dominique Dumont.
+
+This is free software, licensed under:
+
+  The GNU Lesser General Public License, Version 2.1, February 1999
+
+=cut
