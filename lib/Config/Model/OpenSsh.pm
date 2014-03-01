@@ -8,10 +8,7 @@
 #   The GNU Lesser General Public License, Version 2.1, February 1999
 #
 package Config::Model::OpenSsh ;
-{
-  $Config::Model::OpenSsh::VERSION = '1.233';
-}
-
+$Config::Model::OpenSsh::VERSION = '1.234';
 1;
 
 __END__
@@ -26,7 +23,7 @@ Config::Model::OpenSsh
 
 =head1 VERSION
 
-version 1.233
+version 1.234
 
 =head1 SYNOPSIS
 

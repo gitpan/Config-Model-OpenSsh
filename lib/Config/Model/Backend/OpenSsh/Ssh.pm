@@ -8,10 +8,7 @@
 #   The GNU Lesser General Public License, Version 2.1, February 1999
 #
 package Config::Model::Backend::OpenSsh::Ssh ;
-{
-  $Config::Model::Backend::OpenSsh::Ssh::VERSION = '1.233';
-}
-
+$Config::Model::Backend::OpenSsh::Ssh::VERSION = '1.234';
 use Mouse ;
 use 5.10.1;
 extends "Config::Model::Backend::OpenSsh" ;
@@ -142,7 +139,7 @@ Config::Model::Backend::OpenSsh::Ssh
 
 =head1 VERSION
 
-version 1.233
+version 1.234
 
 =head1 SYNOPSIS
 

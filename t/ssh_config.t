@@ -1,7 +1,7 @@
 # -*- cperl -*-
 
 use ExtUtils::testlib;
-use Test::More tests => 26;
+use Test::More ;
 use Config::Model ;
 use Config::Model::BackendMgr; # required for tests
 use Log::Log4perl qw(:easy) ;
@@ -135,7 +135,7 @@ is_deeply([split /\n/,$dump2],[split /\n/,$dump],
 	  "check if both root_ssh dumps are identical") ;
 
 SKIP: {
-    skip "user tests when test is run as root", 7
+    skip "user tests when test is run as root", 12
        if $EUID == 0 ;
 
     note "Running test like user with layered config";
@@ -187,7 +187,12 @@ SKIP: {
     # fix is pending
     my $expect = $Config::Model::VERSION > 2.046 ? 0 : 1 ;
     is($user_inst->has_error,$expect,"check error count after fix") ;
+
+    # check if config has warnings
+    is($user_inst->has_warning,0,"check if warnings are left");
 }
+
+done_testing;
 
 __END__
 # ssh global comment

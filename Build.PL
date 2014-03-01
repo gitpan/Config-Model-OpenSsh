@@ -68,7 +68,7 @@ my $build = $class->new
     'Tk' => '0'
   },
   'configure_requires' => {
-    'Config::Model' => '2.041',
+    'Config::Model' => '2.050',
     'Module::Build' => '0.3601'
   },
   'recommends' => {
@@ -76,7 +76,7 @@ my $build = $class->new
     'Config::Model::TkUI' => '0'
   },
   'requires' => {
-    'Config::Model' => '2.041',
+    'Config::Model' => '2.050',
     'File::HomeDir' => '0',
     'Log::Log4perl' => '1.11',
     'Mouse' => '0'

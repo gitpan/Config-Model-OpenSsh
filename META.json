@@ -4,7 +4,7 @@
       "Dominique Dumont"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 5.008, CPAN::Meta::Converter version 2.133380",
+   "generated_by" : "Dist::Zilla version 5.013, CPAN::Meta::Converter version 2.133380",
    "license" : [
       "lgpl_2_1"
    ],
@@ -26,7 +26,7 @@
       },
       "configure" : {
          "requires" : {
-            "Config::Model" : "2.041",
+            "Config::Model" : "2.050",
             "Module::Build" : "0.3601"
          }
       },
@@ -36,7 +36,7 @@
             "Config::Model::TkUI" : "0"
          },
          "requires" : {
-            "Config::Model" : "2.041",
+            "Config::Model" : "2.050",
             "File::HomeDir" : "0",
             "Log::Log4perl" : "1.11",
             "Mouse" : "0"
@@ -56,6 +56,6 @@
          "web" : "http://github.com/dod38fr/config-model-openssh.git"
       }
    },
-   "version" : "1.233"
+   "version" : "1.234"
 }
 
