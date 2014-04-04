@@ -63,13 +63,13 @@ my $build = $class->new
     'AnyEvent' => '0',
     'Config::Model::Tester' => '2.042',
     'EV' => '0',
-    'Module::Build' => '0.3601',
+    'Module::Build' => '0.34',
     'Test::More' => '0',
     'Tk' => '0'
   },
   'configure_requires' => {
     'Config::Model' => '2.050',
-    'Module::Build' => '0.3601'
+    'Module::Build' => '0.34'
   },
   'recommends' => {
     'Config::Model::CursesUI' => '0',
@@ -79,7 +79,8 @@ my $build = $class->new
     'Config::Model' => '2.050',
     'File::HomeDir' => '0',
     'Log::Log4perl' => '1.11',
-    'Mouse' => '0'
+    'Mouse' => '0',
+    'perl' => '5.010'
   },
 
    add_to_cleanup => [qw/wr_test/] ,

@@ -8,7 +8,7 @@
 #   The GNU Lesser General Public License, Version 2.1, February 1999
 #
 package Config::Model::Backend::OpenSsh ;
-$Config::Model::Backend::OpenSsh::VERSION = '1.234';
+$Config::Model::Backend::OpenSsh::VERSION = '1.235';
 use 5.10.1;
 use Mouse ;
 extends "Config::Model::Backend::Any" ;
@@ -230,6 +230,8 @@ no Mouse;
 
 1;
 
+# ABSTRACT: Common backend methods for Ssh and Sshd backends
+
 __END__
 
 =pod
@@ -238,11 +240,11 @@ __END__
 
 =head1 NAME
 
-Config::Model::Backend::OpenSsh
+Config::Model::Backend::OpenSsh - Common backend methods for Ssh and Sshd backends
 
 =head1 VERSION
 
-version 1.234
+version 1.235
 
 =head1 SYNOPSIS
 
@@ -253,10 +255,6 @@ L<Config::Model::Backend::OpenSsh::Sshd>.
 
 Methods used by both L<Config::Model::Backend::OpenSsh::Ssh> and
 L<Config::Model::Backend::OpenSsh::Sshd>. 
-
-=head1 NAME
-
-Config::Model::Backend::OpenSsh - Common backend methods for Ssh and Sshd backends
 
 =head1 AUTHOR
 

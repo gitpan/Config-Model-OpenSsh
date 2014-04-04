@@ -8,7 +8,7 @@
 #   The GNU Lesser General Public License, Version 2.1, February 1999
 #
 package Config::Model::Backend::OpenSsh::Sshd ;
-$Config::Model::Backend::OpenSsh::Sshd::VERSION = '1.234';
+$Config::Model::Backend::OpenSsh::Sshd::VERSION = '1.235';
 use Mouse ;
 extends "Config::Model::Backend::OpenSsh" ;
 
@@ -156,6 +156,8 @@ no Mouse;
 
 1;
 
+# ABSTRACT: Backend for sshd configuration files
+
 __END__
 
 =pod
@@ -164,11 +166,11 @@ __END__
 
 =head1 NAME
 
-Config::Model::Backend::OpenSsh::Sshd
+Config::Model::Backend::OpenSsh::Sshd - Backend for sshd configuration files
 
 =head1 VERSION
 
-version 1.234
+version 1.235
 
 =head1 SYNOPSIS
 
@@ -177,10 +179,6 @@ None
 =head1 DESCRIPTION
 
 This calls provides a backend to read and write sshd client configuration files.
-
-=head1 NAME
-
-Config::Model::Backend::OpenSsh::sshd - Backend for sshd configuration files
 
 =head1 STOP
 

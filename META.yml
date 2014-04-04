@@ -6,12 +6,12 @@ build_requires:
   AnyEvent: '0'
   Config::Model::Tester: '2.042'
   EV: '0'
-  Module::Build: '0.3601'
+  Module::Build: '0.34'
   Test::More: '0'
   Tk: '0'
 configure_requires:
   Config::Model: '2.050'
-  Module::Build: '0.3601'
+  Module::Build: '0.34'
 dynamic_config: 0
 generated_by: 'Dist::Zilla version 5.013, CPAN::Meta::Converter version 2.133380'
 license: lgpl
@@ -27,8 +27,9 @@ requires:
   File::HomeDir: '0'
   Log::Log4perl: '1.11'
   Mouse: '0'
+  perl: '5.010'
 resources:
   bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=Config-Model-OpenSsh
   homepage: https://github.com/dod38fr/config-model/wiki
   repository: git://github.com/dod38fr/config-model-openssh.git
-version: '1.234'
+version: '1.235'

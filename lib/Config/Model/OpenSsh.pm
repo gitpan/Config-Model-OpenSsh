@@ -8,8 +8,10 @@
 #   The GNU Lesser General Public License, Version 2.1, February 1999
 #
 package Config::Model::OpenSsh ;
-$Config::Model::OpenSsh::VERSION = '1.234';
+$Config::Model::OpenSsh::VERSION = '1.235';
 1;
+
+# ABSTRACT: OpenSSH config editor
 
 __END__
 
@@ -19,11 +21,11 @@ __END__
 
 =head1 NAME
 
-Config::Model::OpenSsh
+Config::Model::OpenSsh - OpenSSH config editor
 
 =head1 VERSION
 
-version 1.234
+version 1.235
 
 =head1 SYNOPSIS
 
@@ -71,11 +73,7 @@ To edit F</etc/ssh/ssh_config>, run (as root):
 
 To edit F<~/.ssh/config>, run as a normal user:
 
- # cme edit ssh
-
-=head1 NAME
-
-Config::Model::OpenSsh - OpenSSH config editor
+ $ cme edit ssh
 
 =head1 user interfaces
 
