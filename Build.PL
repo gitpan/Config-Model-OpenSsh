@@ -60,15 +60,16 @@ my $build = $class->new
    appli_files   => \%appli_files ,
  
   'build_requires' => {
-    'AnyEvent' => '0',
+    'Config::Model::BackendMgr' => '0',
     'Config::Model::Tester' => '2.042',
-    'EV' => '0',
+    'English' => '0',
     'Module::Build' => '0.34',
+    'Test::Differences' => '0',
     'Test::More' => '0',
+    'Test::Warn' => '0',
     'Tk' => '0'
   },
   'configure_requires' => {
-    'Config::Model' => '2.050',
     'Module::Build' => '0.34'
   },
   'recommends' => {
@@ -76,8 +77,13 @@ my $build = $class->new
     'Config::Model::TkUI' => '0'
   },
   'requires' => {
+    'Carp' => '0',
     'Config::Model' => '2.050',
+    'Config::Model::Backend::Any' => '0',
+    'File::Copy' => '0',
     'File::HomeDir' => '0',
+    'File::Path' => '0',
+    'IO::File' => '0',
     'Log::Log4perl' => '1.11',
     'Mouse' => '0',
     'perl' => '5.010'

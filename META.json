@@ -4,7 +4,7 @@
       "Dominique Dumont"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 5.013, CPAN::Meta::Converter version 2.133380",
+   "generated_by" : "Dist::Zilla version 5.016, CPAN::Meta::Converter version 2.141170",
    "license" : [
       "lgpl_2_1"
    ],
@@ -16,17 +16,12 @@
    "prereqs" : {
       "build" : {
          "requires" : {
-            "AnyEvent" : "0",
-            "Config::Model::Tester" : "2.042",
-            "EV" : "0",
             "Module::Build" : "0.34",
-            "Test::More" : "0",
             "Tk" : "0"
          }
       },
       "configure" : {
          "requires" : {
-            "Config::Model" : "2.050",
             "Module::Build" : "0.34"
          }
       },
@@ -36,11 +31,26 @@
             "Config::Model::TkUI" : "0"
          },
          "requires" : {
+            "Carp" : "0",
             "Config::Model" : "2.050",
+            "Config::Model::Backend::Any" : "0",
+            "File::Copy" : "0",
             "File::HomeDir" : "0",
+            "File::Path" : "0",
+            "IO::File" : "0",
             "Log::Log4perl" : "1.11",
             "Mouse" : "0",
             "perl" : "5.010"
+         }
+      },
+      "test" : {
+         "requires" : {
+            "Config::Model::BackendMgr" : "0",
+            "Config::Model::Tester" : "2.042",
+            "English" : "0",
+            "Test::Differences" : "0",
+            "Test::More" : "0",
+            "Test::Warn" : "0"
          }
       }
    },
@@ -57,6 +67,6 @@
          "web" : "http://github.com/dod38fr/config-model-openssh.git"
       }
    },
-   "version" : "1.235"
+   "version" : "1.236"
 }
 

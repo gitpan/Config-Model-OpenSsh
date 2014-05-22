@@ -8,8 +8,11 @@
 #   The GNU Lesser General Public License, Version 2.1, February 1999
 #
 package Config::Model::Backend::OpenSsh ;
-$Config::Model::Backend::OpenSsh::VERSION = '1.235';
+$Config::Model::Backend::OpenSsh::VERSION = '1.236';
 use 5.10.1;
+
+use Config::Model 2.050;
+
 use Mouse ;
 extends "Config::Model::Backend::Any" ;
 
@@ -22,7 +25,7 @@ has 'current_node'  => (
 
 use Carp ;
 use IO::File ;
-use Log::Log4perl;
+use Log::Log4perl 1.11;
 use File::Copy ;
 use File::Path ;
 
@@ -179,7 +182,7 @@ sub write_node_content {
     my $result = '' ;
     my $match  = '' ;
 
-    foreach my $name ($node->get_element_name(for => 'master') ) {
+    foreach my $name ($node->get_element_name() ) {
 	next unless $node->is_element_defined($name) ;
 	my $elt = $node->fetch_element($name) ;
 	my $type = $elt->get_type;
@@ -244,7 +247,7 @@ Config::Model::Backend::OpenSsh - Common backend methods for Ssh and Sshd backen
 
 =head1 VERSION
 
-version 1.235
+version 1.236
 
 =head1 SYNOPSIS
 
@@ -255,10 +258,6 @@ L<Config::Model::Backend::OpenSsh::Sshd>.
 
 Methods used by both L<Config::Model::Backend::OpenSsh::Ssh> and
 L<Config::Model::Backend::OpenSsh::Sshd>. 
-
-=head1 AUTHOR
-
-Dominique Dumont, (ddumont at cpan dot org)
 
 =head1 SEE ALSO
 

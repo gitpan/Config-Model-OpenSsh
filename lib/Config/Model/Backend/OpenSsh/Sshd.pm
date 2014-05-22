@@ -8,7 +8,7 @@
 #   The GNU Lesser General Public License, Version 2.1, February 1999
 #
 package Config::Model::Backend::OpenSsh::Sshd ;
-$Config::Model::Backend::OpenSsh::Sshd::VERSION = '1.235';
+$Config::Model::Backend::OpenSsh::Sshd::VERSION = '1.236';
 use Mouse ;
 extends "Config::Model::Backend::OpenSsh" ;
 
@@ -116,7 +116,7 @@ sub write_match_block {
     my $match_line ;
     my $match_body ;
 
-    foreach my $name ($match_elt->get_element_name(for => 'master') ) {
+    foreach my $name ($match_elt->get_element_name() ) {
 	my $elt = $match_elt->fetch_element($name) ;
 
 	if ($name eq 'Settings') {
@@ -143,7 +143,7 @@ sub write_match_condition {
 
     my $result = '' ;
 
-    foreach my $name ($cond_elt->get_element_name(for => 'master') ) {
+    foreach my $name ($cond_elt->get_element_name() ) {
 	my $elt = $cond_elt->fetch_element($name) ;
 	my $v = $elt->fetch($mode) ;
 	$result .= " $name $v" if defined $v;
@@ -170,7 +170,7 @@ Config::Model::Backend::OpenSsh::Sshd - Backend for sshd configuration files
 
 =head1 VERSION
 
-version 1.235
+version 1.236
 
 =head1 SYNOPSIS
 
@@ -201,10 +201,6 @@ C<sshd_root> configuration tree.
 
 Write F<sshd_config> in C<config_dir> from the data stored in  
 C<sshd_root> configuration tree.
-
-=head1 AUTHOR
-
-Dominique Dumont, (ddumont at cpan dot org)
 
 =head1 SEE ALSO
 

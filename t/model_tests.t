@@ -2,10 +2,8 @@
 use warnings;
 
 use strict;
-use EV;
-use AnyEvent;
 
-use Config::Model::Tester ;
+use Config::Model::Tester 2.042;
 use ExtUtils::testlib;
 
 my $arg = shift || '';

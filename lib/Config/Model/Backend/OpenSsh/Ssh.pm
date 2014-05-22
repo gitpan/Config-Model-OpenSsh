@@ -8,7 +8,7 @@
 #   The GNU Lesser General Public License, Version 2.1, February 1999
 #
 package Config::Model::Backend::OpenSsh::Ssh ;
-$Config::Model::Backend::OpenSsh::Ssh::VERSION = '1.235';
+$Config::Model::Backend::OpenSsh::Ssh::VERSION = '1.236';
 use Mouse ;
 use 5.10.1;
 extends "Config::Model::Backend::OpenSsh" ;
@@ -111,7 +111,7 @@ sub write_forward {
     my $sep = $v6 ? '/' : ':';
 
     my $line = '';
-    foreach my $name ($forward_elt->get_element_name(for => 'master') ) {
+    foreach my $name ($forward_elt->get_element_name() ) {
 	next if $name eq 'ipv6' ;
 	my $elt = $forward_elt->fetch_element($name) ;
 	my $v = $elt->fetch($mode) ;
@@ -141,7 +141,7 @@ Config::Model::Backend::OpenSsh::Ssh - Backend for ssh configuration files
 
 =head1 VERSION
 
-version 1.235
+version 1.236
 
 =head1 SYNOPSIS
 
@@ -172,10 +172,6 @@ C<ssh_root> configuration tree.
 
 Write F<ssh_config> in C<config_dir> from the data stored in  
 C<ssh_root> configuration tree.
-
-=head1 AUTHOR
-
-Dominique Dumont, (ddumont at cpan dot org)
 
 =head1 SEE ALSO
 

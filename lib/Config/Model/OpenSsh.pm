@@ -8,7 +8,7 @@
 #   The GNU Lesser General Public License, Version 2.1, February 1999
 #
 package Config::Model::OpenSsh ;
-$Config::Model::OpenSsh::VERSION = '1.235';
+$Config::Model::OpenSsh::VERSION = '1.236';
 1;
 
 # ABSTRACT: OpenSSH config editor
@@ -25,7 +25,7 @@ Config::Model::OpenSsh - OpenSSH config editor
 
 =head1 VERSION
 
-version 1.235
+version 1.236
 
 =head1 SYNOPSIS
 
@@ -94,10 +94,6 @@ A Curses interface with option C<cme edit ssh -ui curses> if L<Config::Model::Cu
 A Shell like interface with option C<cme edit ssh -ui shell>.
 
 =back
-
-=head1 AUTHOR
-
-Dominique Dumont, (ddumont at cpan dot org)
 
 =head1 SEE ALSO
 
